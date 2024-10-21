@@ -1,24 +1,60 @@
-import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
-
+import 'package:il_env/index.dart';
 import '../controllers/settings_controller.dart';
 
 class SettingsView extends GetView<SettingsController> {
   const SettingsView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SettingsView'),
+        title: Text(translateKeyTr(TranslationKey.keySettings)),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text(
-          'SettingsView is working',
-          style: TextStyle(fontSize: 20),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GetX<SettingsController>(
+              builder: (controller) => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: ModelType.values
+                    .map((type) => _buildRadioOption(controller, type))
+                    .toList(),
+              ),
+            ),
+            SizedBox(height: 16.0),
+            CustomTextField(labelText: 'API Key', controller: controller.apiKeyController),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(40),
+              child: Center(
+                child: CustomTextButton(
+                        text: translateKeyTr(
+                          TranslationKey.keyUpdateSettings,
+                        ),
+                        onPressed: controller.saveSettings),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
+
+  Widget _buildRadioOption(SettingsController controller, ModelType type) {
+    return Row(
+      children: [
+        Text(type == ModelType.gemini ? 'Gemini' : 'GPT'),
+        Radio<ModelType>(
+          value: type,
+          groupValue: controller.selectedModel.value,
+          onChanged: controller.updateSelectedModel,
+        ),
+      ],
+    );
+  }
+
+
 }

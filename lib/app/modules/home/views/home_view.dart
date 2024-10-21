@@ -1,5 +1,6 @@
 import 'package:il_env/index.dart';
 import '../controllers/home_controller.dart';
+
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
   @override
@@ -24,25 +25,30 @@ class HomeView extends GetView<HomeController> {
               ],
             ),
             const SizedBox(height: 70),
-            Center(child: Text('help_text'.tr)),
+            Center(
+              child: Text(
+                translateKeyTr(TranslationKey.keyHelpText),
+              ),
+            ),
             _buildQuestionTextField(),
             const SizedBox(height: 70),
             Center(
               child: _buildStudyLessonsButton(),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
     );
   }
- 
+
   Widget _buildLanguageButton() {
     return ElevatedButton(
       onPressed: controller.toggleLanguage,
       style: ElevatedButton.styleFrom(
         shape: CircleBorder(
-            side: BorderSide(
-                color: AppColors.primaryColor, width: 1)),
+          side: BorderSide(color: AppColors.primaryColor, width: 1),
+        ),
         padding: EdgeInsets.all(10),
       ),
       child: Icon(Icons.language, color: AppColors.primaryColor),
@@ -54,8 +60,8 @@ class HomeView extends GetView<HomeController> {
       onPressed: () => Get.toNamed(Routes.SETTINGS),
       style: ElevatedButton.styleFrom(
         shape: CircleBorder(
-            side: BorderSide(
-                color: AppColors.primaryColor, width: 1)),
+          side: BorderSide(color: AppColors.primaryColor, width: 1),
+        ),
         padding: EdgeInsets.all(10),
       ),
       child: Icon(Icons.settings, color: AppColors.primaryColor),
@@ -72,33 +78,23 @@ class HomeView extends GetView<HomeController> {
 
   Widget _buildQuestionTextField() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: 'question_hint'.tr,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+        child: CustomTextField(
+          labelText: translateKeyTr(TranslationKey.keyQuestionHint),
+          suffixIcon: IconButton(
+            icon: Icon(
+              Icons.send,
               color: AppColors.primaryColor,
-              width: 2,
             ),
+            onPressed: () {},
           ),
-        ),
-      ),
-    );
+          maxLength: 1000,
+        ));
   }
 
   Widget _buildStudyLessonsButton() {
-    return ElevatedButton(
-      onPressed: () {},
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: Text(
-          'study_lessons'.tr,
-          style: TextStyle(color: Colors.black.withOpacity(0.5)),
-        ),
-      ),
+    return CustomTextButton(
+      text: translateKeyTr(TranslationKey.keyStudyLessons),
     );
   }
-
 }
