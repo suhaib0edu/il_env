@@ -13,15 +13,15 @@ class SettingsController extends GetxController {
   Future<void> _loadSettings() async {
     final savedModel = await storage.read(key: 'selectedModel');
     if (savedModel != null) {
-      selectedModel.value = ModelType.values.firstWhere(
-        (model) => model.toString() == savedModel,
-        orElse: () => selectedModel.value,
-      );
+      savedModel == ModelType.gemini.name
+          ? selectedModel.value = ModelType.gemini
+          : selectedModel.value = ModelType.gpt;
     }
     await _updateApiKeyController();
   }
 
   Future<void> _updateApiKeyController() async {
+    apiKeyController.clear();
     final apiKeyKey = selectedModel.value.name;
     final savedApiKey = await storage.read(key: apiKeyKey);
     if (savedApiKey != null) {
@@ -37,15 +37,10 @@ class SettingsController extends GetxController {
   }
 
   void saveSettings() {
-    storage.write(key: 'selectedModel', value: selectedModel.value.toString());
+    storage.write(key: 'selectedModel', value: selectedModel.value.name);
     storage.write(key: selectedModel.value.name, value: apiKeyController.text);
 
-    Get.snackbar(
-      translateKeyTr(TranslationKey.keySuccess),
-      translateKeyTr(TranslationKey.keySettingsSavedSuccessfully),
-    );
+    successSnackbar(TranslationKey.keySettingsSavedSuccessfully);
     Get.toNamed(Routes.HOME);
   }
 }
-
-enum ModelType { gemini, gpt }
