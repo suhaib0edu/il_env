@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:il_env/app/utils/colors.dart';
 
 class CustomContainer extends StatelessWidget {
-  final double height;
-  final double width;
+  final Widget? child;
+  final double? height;
+  final double? width;
   final Color color;
   final double radius;
   final EdgeInsets padding;
@@ -13,8 +14,9 @@ class CustomContainer extends StatelessWidget {
 
   const CustomContainer({
     super.key,
-    this.height = 50,
-    this.width = double.infinity,
+    this.child,
+    this.height,
+    this.width,
     this.color = AppColors.tertiaryColor,
     this.radius = 24,
     this.padding = const EdgeInsets.all(16),
@@ -34,6 +36,7 @@ class CustomContainer extends StatelessWidget {
           Radius.circular(radius),
         ),
       ),
+      child: child,
     );
   }
 }
