@@ -28,12 +28,16 @@ class HomeView extends GetView<HomeController> {
             Center(
               child: Text(
                 translateKeyTr(TranslationKey.keyHelpText),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             _buildQuestionTextField(),
             const SizedBox(height: 70),
             Center(
-              child: _buildStudyLessonsButton(),
+              child: _buildStudyLessonsButton(controller),
             ),
             const SizedBox(height: 20),
           ],
@@ -80,21 +84,16 @@ class HomeView extends GetView<HomeController> {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         child: CustomTextField(
-          labelText: translateKeyTr(TranslationKey.keyQuestionHint),
-          suffixIcon: IconButton(
-            icon: Icon(
-              Icons.send,
-              color: AppColors.primaryColor,
-            ),
-            onPressed: () {},
-          ),
-          maxLength: 1000,
+          controller: controller.lessonController,
+          labelText: translateKeyTr(TranslationKey.keyLessonPrompt),
+          maxLength: 3500,
         ));
   }
 
-  Widget _buildStudyLessonsButton() {
+  Widget _buildStudyLessonsButton(HomeController controller) {
     return CustomTextButton(
       text: translateKeyTr(TranslationKey.keyStudyLessons),
+      onPressed: controller.studyLessons,
     );
   }
 }
