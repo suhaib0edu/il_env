@@ -4,9 +4,9 @@ class TranslationsService extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
-          'keyHelpText': 'How can I help you today?',
-          'keyQuestionHint': 'Do you have a question or inquiry?',
-          'keyStudyLessons': 'Study Lessons',
+          'keyHelpText': 'What will we learn today?',
+          'keyQuestionHint': 'Do you have a question regarding this section?',
+          'keyStudyLessons': 'Start Studying',
           'keyUpdateSettings': 'Update Settings',
           'keySettings': 'Settings',
           'keySuccess': 'Success',
@@ -14,11 +14,18 @@ class TranslationsService extends Translations {
           'keyError': 'Error',
           'keyCheckConnection': 'Please check your internet connection and try again.',
           'keyApiKeyError': 'We could not connect to the model. Make sure to add your API key correctly or switch to a different provider.',
+          'keyLessonPrompt': 'Enter the lesson or article here',
+          'keyMainGoals': 'Main Goals',
+          'keyCoreConcepts': 'Core Concepts',
+          'keyImportantPoints': 'Important Points',
+          'keyLessonBasics': 'Lesson basics are being prepared',
+          'keyNoData': 'No data available', 
+          'keyLessonBasicsTitle': 'Lesson Basics', 
         },
         'ar_SA': {
-          'keyHelpText': 'كيف يمكنني مساعدتك اليوم؟',
-          'keyQuestionHint': 'هل لديك سؤال أو استفسار؟',
-          'keyStudyLessons': 'مذاكرة الدروس',
+          'keyHelpText': 'ماذا سنتعلم اليوم؟',
+          'keyQuestionHint': 'هل لديك سؤال في هذه الجزئية؟',
+          'keyStudyLessons': 'إبدأ المذاكرة',
           'keyUpdateSettings': 'تحديث الإعدادات',
           'keySettings': 'الإعدادات',
           'keySuccess': 'نجاح',
@@ -26,6 +33,13 @@ class TranslationsService extends Translations {
           'keyError': 'خطأ',
           'keyCheckConnection': 'يرجى التحقق من الاتصال بالإنترنت والمحاولة مرة أخرى.',
           'keyApiKeyError': 'لم نتمكن من الاتصال بالنموذج. تأكد من إضافة مفتاح API الخاص بك بشكل صحيح أو التبديل لمزود مختلف.',
+          'keyLessonPrompt': 'ضع الدرس أو المقالة هنا',
+          'keyMainGoals': 'الأهداف الرئيسية',
+          'keyCoreConcepts': 'المفاهيم الأساسية',
+          'keyImportantPoints': 'النقاط المهمة',
+          'keyLessonBasics': 'يتم إعداد أساسيات الدرس',
+          'keyNoData': 'لا يوجد بيانات', 
+          'keyLessonBasicsTitle': 'أساسيات الدرس', 
         },
       };
 }
@@ -41,6 +55,13 @@ enum TranslationKey {
   keyError,
   keyCheckConnection,
   keyApiKeyError,
+  keyLessonPrompt,
+  keyMainGoals,
+  keyCoreConcepts,
+  keyImportantPoints,
+  keyLessonBasics,
+  keyNoData, 
+  keyLessonBasicsTitle, 
 }
 
 String translateKeyTr(TranslationKey key) {

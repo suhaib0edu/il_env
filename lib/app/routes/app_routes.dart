@@ -8,6 +8,7 @@ abstract class Routes {
   static const DISCUSSION = _Paths.DISCUSSION;
   static const EXAM = _Paths.EXAM;
   static const EVALUATIONS = _Paths.EVALUATIONS;
+  static const LESSON_KEYS = _Paths.LESSON_KEYS;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const DISCUSSION = '/discussion';
   static const EXAM = '/exam';
   static const EVALUATIONS = '/evaluations';
+  static const LESSON_KEYS = '/lesson-keys';
 }
