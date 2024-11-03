@@ -11,6 +11,7 @@ export 'package:il_env/app/widgets/custom_container.dart';
 export 'package:il_env/app/widgets/custom_button.dart';
 export 'package:il_env/app/widgets/custom_text_field.dart';
 export 'package:il_env/app/widgets/custom_snackbar.dart';
+export 'package:il_env/app/widgets/custom_markdown.dart';
 export 'package:il_env/app/widgets/discussion_item.dart';
 
 final storage = FlutterSecureStorage();
