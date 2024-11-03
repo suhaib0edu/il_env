@@ -44,6 +44,10 @@ class LessonKeysController extends GetxController {
         data['summary']['important_points']);
 
     isThinking.value = false;
-    update(); // Update the view
+    update(); 
+  }
+
+  goToDiscussion() {
+    Get.toNamed(Routes.DISCUSSION, arguments: [lesson]);
   }
 }

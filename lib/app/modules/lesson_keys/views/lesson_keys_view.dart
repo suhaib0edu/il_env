@@ -21,7 +21,7 @@ class LessonKeysView extends GetView<LessonKeysController> {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child:
-                          Text(translateKeyTr(TranslationKey.keyLessonBasics)),
+                          Text(translateKeyTr(TranslationKey.keyContentPreparation)),
                     ),
                   ],
                 ),
@@ -47,6 +47,7 @@ class LessonKeysView extends GetView<LessonKeysController> {
                           child: CustomTextButton(
                             text:
                                 translateKeyTr(TranslationKey.keyStudyLessons),
+                                onPressed: () => controller.goToDiscussion(),
                           ),
                         ),
                         SizedBox(
