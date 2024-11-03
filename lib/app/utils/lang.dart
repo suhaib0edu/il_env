@@ -18,9 +18,12 @@ class TranslationsService extends Translations {
           'keyMainGoals': 'Main Goals',
           'keyCoreConcepts': 'Core Concepts',
           'keyImportantPoints': 'Important Points',
-          'keyLessonBasics': 'Lesson basics are being prepared',
-          'keyNoData': 'No data available', 
-          'keyLessonBasicsTitle': 'Lesson Basics', 
+          'keyContentPreparation': 'Content is being prepared',
+          'keyNoData': 'No data available',
+          'keyLessonBasicsTitle': 'Lesson Basics',
+          'keyDeepExplanation': 'Deeper Explanation', 
+          'keyExploreQuestions': 'Exploratory Questions',
+          'keyDirectQuestion': 'Direct Question', 
         },
         'ar_SA': {
           'keyHelpText': 'ماذا سنتعلم اليوم؟',
@@ -37,9 +40,12 @@ class TranslationsService extends Translations {
           'keyMainGoals': 'الأهداف الرئيسية',
           'keyCoreConcepts': 'المفاهيم الأساسية',
           'keyImportantPoints': 'النقاط المهمة',
-          'keyLessonBasics': 'يتم إعداد أساسيات الدرس',
-          'keyNoData': 'لا يوجد بيانات', 
-          'keyLessonBasicsTitle': 'أساسيات الدرس', 
+          'keyContentPreparation': 'يتم تجهيز المحتوى',
+          'keyNoData': 'لا يوجد بيانات',
+          'keyLessonBasicsTitle': 'أساسيات الدرس',
+          'keyDeepExplanation': 'شرح أعمق', 
+          'keyExploreQuestions': 'أسئلة استكشافية', 
+          'keyDirectQuestion': 'سؤال مباشر', 
         },
       };
 }
@@ -59,9 +65,12 @@ enum TranslationKey {
   keyMainGoals,
   keyCoreConcepts,
   keyImportantPoints,
-  keyLessonBasics,
-  keyNoData, 
-  keyLessonBasicsTitle, 
+  keyContentPreparation,
+  keyNoData,
+  keyLessonBasicsTitle,
+  keyDeepExplanation, 
+  keyExploreQuestions, 
+  keyDirectQuestion, 
 }
 
 String translateKeyTr(TranslationKey key) {
