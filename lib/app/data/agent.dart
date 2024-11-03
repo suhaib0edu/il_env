@@ -167,7 +167,7 @@ class AgentUtils {
 
 ''';
 
-  String divider() => '''
+  String lessonDividerPrompt() => '''
 
 قم بتقسيم النص المقدم إلى أجزاء أو فقرات مفهومة وواضحة، واحفظ كل جزء في قائمة. يجب أن يتضمن الإخراج جميع الأجزاء دون اختصار أو تلخيص. 
 اذا كان النص لا يحتوى على عناوين كثيرة انشئ عناوين ببساطة تناسب كل فقرة.
@@ -198,6 +198,36 @@ class AgentUtils {
     ]
 }
 ''';
+
+  String deepExplanationPrompt({String? oldExplanation, Map<String, dynamic>? part}) => """
+ اشرح النص التالي بأسلوب مختلف:
+    
+    عنوان: ${part?['t']}
+    المحتوى: ${part?['c']}
+
+    ستقدم الشرح بتنسيق Markdown
+
+    يجب ان يختلف عن شرحك السابق بحيث يكون ابسط واسهل في الفهم و منظم ويحتوي على تشبيهات : $oldExplanation
+يمكن استخدام رموز تعبيرية سيبحها الطلاب و تساعدهم على الفهم 
+""";
+
+  String exploreQuestionsPrompt({List<dynamic>? oldQuestions, Map<String, dynamic>? part}) => """
+مهمتك هي انشاء اسئلة استكشافية تساعد على فهم المحتوى بشكل اعمق مع 
+    
+    عنوان: ${part?['t']}
+    المحتوى: ${part?['c']}
+
+    ستقدم الاسئلة بتنسيق Markdown
+
+    يجب ان تختلف عن الأسئلة السابقة بحيث اكثر عمقا : $oldQuestions
+""";
+
+  String directQuestionPrompt({Map<String, dynamic>? part}) => """
+    عنوان: ${part?['t']}
+    المحتوى: ${part?['c']}
+
+في الغالب سيكون سؤال الطلاب له علاقة بالمحتوى السابق
+""";
 
   String cleanJson(String input) {
     final regex = RegExp(r'```json\s*(.*?)\s*```', dotAll: true);
