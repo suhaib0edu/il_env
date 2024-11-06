@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "638894468273",
+    "project_id": "il-env",
+    "storage_bucket": "il-env.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638894468273:android:cf7d6a6717e362fcc0c690",
+        "android_client_info": {
+          "package_name": "com.bysuhaib.il_env"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBedHMnGnJlraDXyq7yQpXJQBSjz7l0VH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
