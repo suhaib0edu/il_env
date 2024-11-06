@@ -1,3 +1,4 @@
+import 'package:il_env/app/widgets/custom_spinKit_wave_spinner.dart';
 import 'package:il_env/index.dart';
 import '../controllers/discussion_controller.dart';
 
@@ -88,8 +89,7 @@ class DiscussionContent extends StatelessWidget {
           builder: (ctr) => _buildRequestIndicator(),
         ),
         SizedBox(height: 8),
-        _buildNavigationRow(),
-        _buildActionButtons(),
+        _buildActionButtons()
       ],
     );
   }
@@ -110,10 +110,8 @@ class DiscussionContent extends StatelessWidget {
   Widget _buildContentDescription() {
     return CustomContainer(
       margin: const EdgeInsets.all(16),
-      child: Text(
-        controller.contentParts[controller.currentPart - 1]['c'],
-        style: TextStyle(color: AppColors.primaryColor),
-      ),
+      child: CustomMarkdown(
+          data: controller.contentParts[controller.currentPart - 1]['c']),
     );
   }
 
@@ -213,10 +211,18 @@ class DiscussionContent extends StatelessWidget {
 
   Widget _buildRequestIndicator() {
     return controller.isThinking
-        ? const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text('يفكر ...'),
-          )
+        ? Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CustomSpinKitWaveSpinner(
+                  color: AppColors.primaryColor,
+                  size: 35.0,
+                ),
+              ),
+          ],
+        )
         : const SizedBox();
   }
 
@@ -231,7 +237,7 @@ class DiscussionContent extends StatelessWidget {
           text: '<',
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Text(
             '${controller.currentPart} / ${controller.contentParts.length}',
             style: TextStyle(fontSize: 16, color: AppColors.primaryColor),
@@ -274,15 +280,20 @@ class DiscussionContent extends StatelessWidget {
             color: AppColors.primaryColor,
             child: Row(
               children: [
-                Text(
-                  translateKeyTr(titleKey),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.quaternaryColor,
+                Expanded(
+                  child: Text(
+                    translateKeyTr(titleKey),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.quaternaryColor,
+                    ),
                   ),
                 ),
                 Spacer(),
                 TextButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.quaternaryColor,
+                  ),
                   onPressed: onPrevious,
                   child: const Text('<'),
                 ),
@@ -291,10 +302,13 @@ class DiscussionContent extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 TextButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.quaternaryColor,
+                  ),
                   onPressed: onNext,
                   child: const Text('>'),
                 ),
-                SizedBox(width: 8),
+                SizedBox(width: 2),
                 IconButton(
                   onPressed: toggleShowContent,
                   icon: Icon(
@@ -322,53 +336,72 @@ class DiscussionContent extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          CustomTextButton(
-            textPadding: EdgeInsets.zero,
-            text: translateKeyTr(TranslationKey.keyDeepExplanation),
-            onPressed: () => controller.deepExplanation(),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomTextButton(
+                  textPadding: EdgeInsets.zero,
+                  text: translateKeyTr(TranslationKey.keyDeepExplanation),
+                  onPressed: () => controller.deepExplanation(),
+                ),
+                const SizedBox(height: 10),
+                CustomTextButton(
+                  textPadding: EdgeInsets.zero,
+                  text: translateKeyTr(TranslationKey.keyExploreQuestions),
+                  onPressed: () => controller.exploreQuestions(),
+                ),
+              ],
+            ),
           ),
-          CustomTextButton(
-            textPadding: EdgeInsets.zero,
-            text: translateKeyTr(TranslationKey.keyExploreQuestions),
-            onPressed: () => controller.exploreQuestions(),
-          ),
-          CustomTextButton(
-            textPadding: EdgeInsets.zero,
-            text: translateKeyTr(TranslationKey.keyDirectQuestion),
-            onPressed: () {
-              if (!controller.isDialogOpen) {
-                controller.isDialogOpen = true;
-                Get.dialog(
-                  Dialog(
-                    backgroundColor: AppColors.secondaryColor,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 40,
-                        horizontal: 20,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CustomTextField(
-                            controller: controller.directQuestionController,
-                            maxLength: 500,
-                            labelText: translateKeyTr(
-                                TranslationKey.keyDirectQuestion),
-                            suffixIcon: IconButton(
-                              onPressed: () => controller.directQuestion(),
-                              icon: Icon(
-                                Icons.send,
-                                color: AppColors.primaryColor,
-                              ),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildNavigationRow(),
+                const SizedBox(height: 10),
+                CustomTextButton(
+                  textPadding: EdgeInsets.zero,
+                  text: translateKeyTr(TranslationKey.keyDirectQuestion),
+                  onPressed: () {
+                    if (!controller.isDialogOpen) {
+                      controller.isDialogOpen = true;
+                      Get.dialog(
+                        Dialog(
+                          backgroundColor: AppColors.secondaryColor,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 40,
+                              horizontal: 20,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CustomTextField(
+                                  controller:
+                                      controller.directQuestionController,
+                                  maxLength: 500,
+                                  labelText: translateKeyTr(
+                                      TranslationKey.keyDirectQuestion),
+                                  suffixIcon: IconButton(
+                                    onPressed: () =>
+                                        controller.directQuestion(),
+                                    icon: Icon(
+                                      Icons.send,
+                                      color: AppColors.primaryColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }
-            },
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),

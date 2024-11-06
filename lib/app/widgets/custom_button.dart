@@ -16,7 +16,7 @@ class CustomTextButton extends StatelessWidget {
         padding: textPadding?? const EdgeInsets.symmetric(horizontal: 40),
         child: Text(
           text,
-          style: TextStyle(color: Colors.black.withOpacity(0.5), fontSize: fontSize?? 16),
+          style: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: fontSize?? 16),
         ),
       ),
     );

@@ -47,22 +47,22 @@ class DiscussionController extends GetxController {
     try {
       isMakingRequest = true;
       update(['discussionView']);
-      // Agent agent = Agent();
-      // String systemInstruction = AgentUtils().lessonDividerPrompt();
-      // var response = await agent.initiateChat(systemInstruction, lesson);
-      // var data = jsonDecode(response);
-      // var parts = data['content_parts'];
+      Agent agent = Agent();
+      String systemInstruction = AgentUtils().lessonDividerPrompt();
+      var response = await agent.initiateChat(systemInstruction, lesson);
+      var data = jsonDecode(response);
+      var parts = data['content_parts'];
 
-      String? jsonString = await storage.read(key: 'contentParts');
-      if (jsonString != null) {
-        List<dynamic> jsonData = jsonDecode(jsonString);
-        contentParts = List<Map<String, dynamic>>.from(jsonData);
-      }
+      // String? jsonString = await storage.read(key: 'contentParts');
+      // if (jsonString != null) {
+      //   List<dynamic> jsonData = jsonDecode(jsonString);
+      //   contentParts = List<Map<String, dynamic>>.from(jsonData);
+      // }
 
-      // parts.forEach((element) {
-      //   contentParts.add(element);
-      // });
-      // await storage.write(key: 'contentParts', value: jsonEncode(contentParts));
+      parts.forEach((element) {
+        contentParts.add(element);
+      });
+      await storage.write(key: 'contentParts', value: jsonEncode(contentParts));
     } catch (e) {
       debugPrint(e.toString());
     }

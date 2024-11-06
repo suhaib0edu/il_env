@@ -48,10 +48,7 @@ class LessonKeysItems extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Align(
               alignment: Alignment.centerRight,
-              child: Text(
-                content,
-                style: TextStyle(color: AppColors.primaryColor, fontSize: 16),
-              ),
+              child: CustomMarkdown(data: content),
             ),
           ),
         ],
