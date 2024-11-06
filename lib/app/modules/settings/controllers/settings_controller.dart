@@ -34,6 +34,7 @@ class SettingsController extends GetxController {
       selectedModel.value = newModel;
       _updateApiKeyController();
     }
+    update();
   }
 
   void saveSettings() {

@@ -16,7 +16,7 @@ class SettingsView extends GetView<SettingsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GetX<SettingsController>(
+            GetBuilder<SettingsController>(
               builder: (controller) => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: ModelType.values
@@ -25,16 +25,23 @@ class SettingsView extends GetView<SettingsController> {
               ),
             ),
             SizedBox(height: 16.0),
-            CustomTextField(labelText: 'API Key', controller: controller.apiKeyController),
+            CustomTextField(
+                labelText: 'API Key', controller: controller.apiKeyController),
+            GetBuilder<SettingsController>(
+              builder: (controller) => CustomMarkdown(data: '''
+  ${translateKeyTr(TranslationKey.keyApiKeyInfo)}
+  ${controller.selectedModel.value == ModelType.gemini ? '[https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)' : '[https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)'}
+'''),
+            ),
             Spacer(),
             Padding(
               padding: const EdgeInsets.all(40),
               child: Center(
                 child: CustomTextButton(
-                        text: translateKeyTr(
-                          TranslationKey.keyUpdateSettings,
-                        ),
-                        onPressed: controller.saveSettings),
+                    text: translateKeyTr(
+                      TranslationKey.keyUpdateSettings,
+                    ),
+                    onPressed: controller.saveSettings),
               ),
             ),
           ],
@@ -55,6 +62,4 @@ class SettingsView extends GetView<SettingsController> {
       ],
     );
   }
-
-
 }
