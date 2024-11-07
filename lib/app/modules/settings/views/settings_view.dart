@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:il_env/index.dart';
 import '../controllers/settings_controller.dart';
 
@@ -6,6 +7,9 @@ class SettingsView extends GetView<SettingsController> {
 
   @override
   Widget build(BuildContext context) {
+    String apikeyLinkToCopy = controller.selectedModel.value == ModelType.gemini
+        ? 'https://aistudio.google.com/app/apikey'
+        : 'https://platform.openai.com/api-keys';
     return Scaffold(
       appBar: AppBar(
         title: Text(translateKeyTr(TranslationKey.keySettings)),
@@ -28,10 +32,25 @@ class SettingsView extends GetView<SettingsController> {
             CustomTextField(
                 labelText: 'API Key', controller: controller.apiKeyController),
             GetBuilder<SettingsController>(
-              builder: (controller) => CustomMarkdown(data: '''
-  ${translateKeyTr(TranslationKey.keyApiKeyInfo)}
-  ${controller.selectedModel.value == ModelType.gemini ? '[https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)' : '[https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)'}
-'''),
+              builder: (controller) => Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(translateKeyTr(TranslationKey.keyApiKeyInfo)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(apikeyLinkToCopy),
+                      IconButton(
+                          onPressed: () {
+                            Clipboard.setData(
+                                ClipboardData(text: apikeyLinkToCopy));
+                            successSnackbar(TranslationKey.keySuccessCopied);
+                          },
+                          icon: Icon(Icons.copy))
+                    ],
+                  ),
+                ],
+              ),
             ),
             Spacer(),
             Padding(
