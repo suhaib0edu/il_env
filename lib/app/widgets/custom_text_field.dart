@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:il_env/index.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -29,8 +30,20 @@ class CustomTextField extends StatelessWidget {
         ),
         filled: true,
         fillColor: AppColors.tertiaryColor,
-        suffixIcon: suffixIcon,
+        suffixIcon: suffixIcon ?? _buildPasteButton(context),
       ),
+    );
+  }
+
+  Widget _buildPasteButton(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.paste_rounded),
+      onPressed: () async {
+        final clipboardData = await Clipboard.getData(Clipboard.kTextPlain);
+        if (clipboardData?.text != null && controller != null) {
+          controller?.text = clipboardData!.text!;
+        }
+      },
     );
   }
 }
