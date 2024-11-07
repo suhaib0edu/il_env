@@ -31,6 +31,7 @@ class HomeView extends GetView<HomeController> {
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  color: AppColors.primaryColor,
                 ),
               ),
             ),
@@ -39,7 +40,18 @@ class HomeView extends GetView<HomeController> {
             Center(
               child: _buildStudyLessonsButton(controller),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
+            Center(
+              child: Text(
+                'by Suhaib Eltayeb \n V=1.0.2',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 9,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primaryColor,
+                ),
+              ),
+            ),
           ],
         ),
       ),
