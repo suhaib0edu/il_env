@@ -7,7 +7,6 @@ class DiscussionController extends GetxController {
   bool showdeepExplanation = false;
   bool showExploreQuestions = false;
   bool showDirectQuestion = false;
-  bool isDialogOpen = false;
   String lesson = '';
   List<Map<String, dynamic>> contentParts = [];
   int currentPart = 1;
@@ -132,7 +131,6 @@ class DiscussionController extends GetxController {
   }
 
   void directQuestion() {
-    isDialogOpen = false;
     Get.back(); 
     try {
       isThinking = true;

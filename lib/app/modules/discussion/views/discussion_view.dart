@@ -212,17 +212,17 @@ class DiscussionContent extends StatelessWidget {
   Widget _buildRequestIndicator() {
     return controller.isThinking
         ? Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            const Padding(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: CustomSpinKitWaveSpinner(
                   color: AppColors.primaryColor,
                   size: 35.0,
                 ),
               ),
-          ],
-        )
+            ],
+          )
         : const SizedBox();
   }
 
@@ -364,40 +364,35 @@ class DiscussionContent extends StatelessWidget {
                   textPadding: EdgeInsets.zero,
                   text: translateKeyTr(TranslationKey.keyDirectQuestion),
                   onPressed: () {
-                    if (!controller.isDialogOpen) {
-                      controller.isDialogOpen = true;
-                      Get.dialog(
-                        Dialog(
-                          backgroundColor: AppColors.secondaryColor,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 40,
-                              horizontal: 20,
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                CustomTextField(
-                                  controller:
-                                      controller.directQuestionController,
-                                  maxLength: 500,
-                                  labelText: translateKeyTr(
-                                      TranslationKey.keyDirectQuestion),
-                                  suffixIcon: IconButton(
-                                    onPressed: () =>
-                                        controller.directQuestion(),
-                                    icon: Icon(
-                                      Icons.send,
-                                      color: AppColors.primaryColor,
-                                    ),
+                    Get.dialog(
+                      Dialog(
+                        backgroundColor: AppColors.secondaryColor,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 40,
+                            horizontal: 20,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CustomTextField(
+                                controller: controller.directQuestionController,
+                                maxLength: 500,
+                                labelText: translateKeyTr(
+                                    TranslationKey.keyDirectQuestion),
+                                suffixIcon: IconButton(
+                                  onPressed: () => controller.directQuestion(),
+                                  icon: Icon(
+                                    Icons.send,
+                                    color: AppColors.primaryColor,
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    }
+                      ),
+                    );
                   },
                 ),
               ],
