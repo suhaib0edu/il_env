@@ -108,7 +108,10 @@ class Agent {
           savedModel == ModelType.gpt.name ? ModelType.gpt : ModelType.gemini;
 
       final apiKey = await storage.read(key: selectedModelType.name) ?? '';
-      if (apiKey.isEmpty) {
+      if (apiKey.isEmpty || apiKey.length < 5) {
+        errorSnackbar(TranslationKey.keyApiKeyError);
+        Get.offAllNamed(Routes.HOME);
+        Get.toNamed(Routes.SETTINGS);
         throw Exception('API key is empty');
       }
 
@@ -199,7 +202,9 @@ class AgentUtils {
 }
 ''';
 
-  String deepExplanationPrompt({String? oldExplanation, Map<String, dynamic>? part}) => """
+  String deepExplanationPrompt(
+          {String? oldExplanation, Map<String, dynamic>? part}) =>
+      """
  اشرح النص التالي بأسلوب مختلف:
     
     عنوان: ${part?['t']}
@@ -211,7 +216,9 @@ class AgentUtils {
 يمكن استخدام رموز تعبيرية سيبحها الطلاب و تساعدهم على الفهم 
 """;
 
-  String exploreQuestionsPrompt({List<dynamic>? oldQuestions, Map<String, dynamic>? part}) => """
+  String exploreQuestionsPrompt(
+          {List<dynamic>? oldQuestions, Map<String, dynamic>? part}) =>
+      """
 مهمتك هي انشاء اسئلة استكشافية تساعد على فهم المحتوى بشكل اعمق مع 
     
     عنوان: ${part?['t']}
