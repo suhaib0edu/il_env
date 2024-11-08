@@ -65,8 +65,8 @@ class DiscussionContent extends StatelessWidget {
         Expanded(
           child: ListView(
             children: [
-              const SizedBox(height: 20),
-              _buildContentTitle(),
+              _buildAppBar(),
+              const SizedBox(height: 10),
               _buildContentDescription(),
               GetBuilder<DiscussionController>(
                 id: 'deepExplanationControls',
@@ -91,19 +91,6 @@ class DiscussionContent extends StatelessWidget {
         SizedBox(height: 8),
         _buildActionButtons()
       ],
-    );
-  }
-
-  Widget _buildContentTitle() {
-    return Center(
-      child: Text(
-        controller.contentParts[controller.currentPart - 1]['t'],
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: AppColors.primaryColor,
-        ),
-      ),
     );
   }
 
@@ -399,6 +386,43 @@ class DiscussionContent extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  _buildAppBar() {
+    return Container(
+      color: AppColors.primaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: AppColors.tertiaryColor,
+              ),
+              onPressed: () => Get.back(),
+            ),
+            Expanded(
+              child: Text(
+                controller.contentParts[controller.currentPart - 1]['t'],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: AppColors.tertiaryColor,
+                ),
+              ),
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.quiz_outlined,
+                color: AppColors.tertiaryColor,
+              ),
+              onPressed: () => Get.toNamed(Routes.EXAM),
+            ),
+          ],
+        ),
       ),
     );
   }

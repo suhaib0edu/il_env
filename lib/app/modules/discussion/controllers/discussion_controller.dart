@@ -108,7 +108,6 @@ class DiscussionController extends GetxController {
     try {
       isThinking = true;
       update(['buildRequestIndicator']);
-      print(exploreQuestionsMap[currentPart]);
       Agent agent = Agent();
       String systemInstruction = AgentUtils()
           .exploreQuestionsPrompt(part: contentParts[currentPart - 1],oldQuestions: exploreQuestionsMap[currentPart]);
