@@ -9,6 +9,7 @@ abstract class Routes {
   static const EXAM = _Paths.EXAM;
   static const EVALUATIONS = _Paths.EVALUATIONS;
   static const LESSON_KEYS = _Paths.LESSON_KEYS;
+  static const STUDY_CENTER = _Paths.STUDY_CENTER;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const EXAM = '/exam';
   static const EVALUATIONS = '/evaluations';
   static const LESSON_KEYS = '/lesson-keys';
+  static const STUDY_CENTER = '/study-center';
 }

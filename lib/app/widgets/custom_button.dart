@@ -12,8 +12,11 @@ class CustomTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        shadowColor: Colors.black,
+      ),
       child: Padding(
-        padding: textPadding?? const EdgeInsets.symmetric(horizontal: 40),
+        padding: textPadding?? const EdgeInsets.symmetric(horizontal: 8),
         child: Text(
           text,
           style: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: fontSize?? 16),

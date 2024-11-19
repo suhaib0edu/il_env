@@ -65,7 +65,18 @@ class DiscussionContent extends StatelessWidget {
         Expanded(
           child: ListView(
             children: [
-              _buildAppBar(),
+              AppBar(
+                title: Text(
+                  controller.contentParts[controller.currentPart - 1]['t'],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.tertiaryColor,
+                    fontSize: 17
+                  ),
+                ),
+                centerTitle: true,
+              ),
+              // _buildAppBar(),
               const SizedBox(height: 10),
               _buildContentDescription(),
               GetBuilder<DiscussionController>(

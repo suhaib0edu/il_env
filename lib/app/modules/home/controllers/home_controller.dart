@@ -15,15 +15,18 @@ class HomeController extends GetxController {
 
   studyLessons() async {
 //     String systemInstruction = '''
-// اسمك هو (ميمي - Mimi) 
+// اسمك هو (ميمي - Mimi)
 // انت عبارة عن نموذج لغة كبير وذكي تعمل حاليا كجزاء من تطبيق تعليمي (IL-ENV)
-//  و يطلق عليه ايضا (بيئة  التعلم الذكية) 
+//  و يطلق عليه ايضا (بيئة  التعلم الذكية)
 //  الذي هو من تطوير (صهيب الطيب - Suhaib Eltayeb)
 // ''';
     // Agent agent = Agent();
     // await agent.initiateChat(systemInstruction, questionController.text);
-
-    Get.toNamed(Routes.LESSON_KEYS, arguments: [lessonController.text]);
-    storage.write(key: 'lesson', value: lessonController.text);
+    if (lessonController.text.isNotEmpty) {
+      storage.write(key: 'lesson', value: lessonController.text);
+      Get.toNamed(Routes.STUDY_CENTER);
+    }else{
+      errorSnackbar(TranslationKey.keyLessonPrompt);
+    }
   }
 }

@@ -12,6 +12,8 @@ import '../modules/lesson_keys/bindings/lesson_keys_binding.dart';
 import '../modules/lesson_keys/views/lesson_keys_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
+import '../modules/study_center/bindings/study_center_binding.dart';
+import '../modules/study_center/views/study_center_view.dart';
 
 part 'app_routes.dart';
 
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.LESSON_KEYS,
       page: () => const LessonKeysView(),
       binding: LessonKeysBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDY_CENTER,
+      page: () => const StudyCenterView(),
+      binding: StudyCenterBinding(),
     ),
   ];
 }

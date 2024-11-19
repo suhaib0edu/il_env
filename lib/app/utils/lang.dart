@@ -18,7 +18,7 @@ class TranslationsService extends Translations {
               'We could not connect to the model. Make sure to add your API key correctly or switch to a different provider.',
           'keyApiKeyInfo':
               'You can get your API key by visiting the following link: ',
-          'keyLessonPrompt': 'Enter the lesson or article here',
+          'keyLessonPrompt': 'Enter the lesson or article',
           'keyMainGoals': 'Main Goals',
           'keyCoreConcepts': 'Core Concepts',
           'keyImportantPoints': 'Important Points',
@@ -29,6 +29,7 @@ class TranslationsService extends Translations {
           'keyExploreQuestions': 'Exploratory Questions',
           'keyDirectQuestion': 'Direct Question',
           'keySuccessCopied': 'Copied to clipboard',
+          'keyExam': 'Exam',
         },
         'ar_SA': {
           'keyHelpText': 'ماذا سنتعلم اليوم؟',
@@ -45,7 +46,7 @@ class TranslationsService extends Translations {
               'لم نتمكن من الاتصال بالنموذج. تأكد من إضافة مفتاح API الخاص بك بشكل صحيح أو التبديل لمزود مختلف.',
           'keyApiKeyInfo':
               'يمكنك الحصول على مفتاح API الخاص بك من خلال زيارة الرابط التالي: ',
-          'keyLessonPrompt': 'ضع الدرس أو المقالة هنا',
+          'keyLessonPrompt': 'ضع الدرس أو المقالة',
           'keyMainGoals': 'الأهداف الرئيسية',
           'keyCoreConcepts': 'المفاهيم الأساسية',
           'keyImportantPoints': 'النقاط المهمة',
@@ -56,6 +57,7 @@ class TranslationsService extends Translations {
           'keyExploreQuestions': 'أسئلة استكشافية',
           'keyDirectQuestion': 'سؤال مباشر',
           'keySuccessCopied': 'تم النسخ إلى الحافظة',
+          'keyExam': 'اختبار',
         },
       };
 }
@@ -83,6 +85,7 @@ enum TranslationKey {
   keyExploreQuestions,
   keyDirectQuestion,
   keySuccessCopied,
+  keyExam,
 }
 
 String translateKeyTr(TranslationKey key) {

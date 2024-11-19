@@ -6,6 +6,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final Widget? suffixIcon;
   final int? maxLength;
+  final Function(String)? onChanged;
 
   const CustomTextField({
     super.key,
@@ -13,6 +14,7 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.suffixIcon,
     this.maxLength,
+    this.onChanged,
   });
 
   @override
@@ -22,6 +24,7 @@ class CustomTextField extends StatelessWidget {
       minLines: 1,
       maxLines: 8,
       maxLength: maxLength,
+      onChanged: onChanged,
       decoration: InputDecoration(
         labelText: labelText,
         border: OutlineInputBorder(

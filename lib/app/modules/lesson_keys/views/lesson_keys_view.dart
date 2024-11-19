@@ -43,13 +43,13 @@ class LessonKeysView extends GetView<LessonKeysController> {
                             title: translateKeyTr(
                                 TranslationKey.keyImportantPoints),
                             content: controller.importantPointsContent),
-                        Center(
-                          child: CustomTextButton(
-                            text:
-                                translateKeyTr(TranslationKey.keyStudyLessons),
-                                onPressed: () => controller.goToDiscussion(),
-                          ),
-                        ),
+                        // Center(
+                        //   child: CustomTextButton(
+                        //     text:
+                        //         translateKeyTr(TranslationKey.keyStudyLessons),
+                        //         onPressed: () => controller.goToDiscussion(),
+                        //   ),
+                        // ),
                         SizedBox(
                           height: 20,
                         ),
