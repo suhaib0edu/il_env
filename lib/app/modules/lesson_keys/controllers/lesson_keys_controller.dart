@@ -36,15 +36,15 @@ class LessonKeysController extends GetxController {
     var data = jsonDecode(response);
 
     // Extract data from the JSON response
-    mainGoalsContent = AgentUtils().formatObjectivesAsMarkdown(
-        data['summary']['lesson_objectives']);
-    coreConceptsContent = AgentUtils().formatObjectivesAsMarkdown(
-        data['summary']['key_concepts']);
-    importantPointsContent = AgentUtils().formatObjectivesAsMarkdown(
-        data['summary']['important_points']);
+    mainGoalsContent = AgentUtils()
+        .formatObjectivesAsMarkdown(data['summary']['lesson_objectives']);
+    coreConceptsContent = AgentUtils()
+        .formatObjectivesAsMarkdown(data['summary']['key_concepts']);
+    importantPointsContent = AgentUtils()
+        .formatObjectivesAsMarkdown(data['summary']['important_points']);
 
     isThinking.value = false;
-    update(); 
+    update();
   }
 
   goToDiscussion() {

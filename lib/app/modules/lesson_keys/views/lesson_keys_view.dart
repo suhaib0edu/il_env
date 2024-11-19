@@ -17,7 +17,7 @@ class LessonKeysView extends GetView<LessonKeysController> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircularProgressIndicator(),
+                    CustomSpinKitWaveSpinner(color: AppColors.primaryColor),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child:

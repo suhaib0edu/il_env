@@ -1,4 +1,3 @@
-import 'package:il_env/app/widgets/custom_spinKit_wave_spinner.dart';
 import 'package:il_env/index.dart';
 import '../controllers/discussion_controller.dart';
 
@@ -33,7 +32,7 @@ class LoadingIndicator extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CircularProgressIndicator(),
+          CustomSpinKitWaveSpinner(color: AppColors.primaryColor),
           Padding(
             padding: EdgeInsets.all(16.0),
             child: Text(translateKeyTr(TranslationKey.keyContentPreparation)),
