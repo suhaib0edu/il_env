@@ -9,15 +9,30 @@ class EvaluationsController extends GetxController {
   RxBool isLoading = false.obs;
   RxInt score = 0.obs;
   RxList<Question> questions = RxList<Question>();
-  RxList<String?> selectedAnswers = RxList<String?>();
 
+  RxBool isVisibleOverallEvaluation = false.obs;
+  RxBool isVisibleWeaknesses = false.obs;
+  RxBool isVisibleAdvice = false.obs;
+
+  void toggleVisibilityOverallEvaluation() {
+    isVisibleOverallEvaluation.toggle();
+    update(['overallEvaluation']);
+  }
+
+  void toggleVisibilityWeaknesses() {
+    isVisibleWeaknesses.toggle();
+    update(['weaknesses']);
+  }
+
+  void toggleVisibilityAdvice() {
+    isVisibleAdvice.toggle();
+    update(['advice']);
+  }
 
   Future<void> loadExamData() async {
-    isLoading.value = true;
     try {
       final scoreJson = await storage.read(key: 'score');
       final questionsJson = await storage.read(key: 'questions');
-      final selectedAnswersJson = await storage.read(key: 'selectedAnswers');
 
       if (scoreJson != null) {
         score.value = int.parse(scoreJson);
@@ -28,23 +43,15 @@ class EvaluationsController extends GetxController {
 
       if (questionsJson != null) {
         final questionsList = jsonDecode(questionsJson) as List<dynamic>;
-        questions.value = questionsList.map((e) => Question.fromJson(e)).toList();
+        questions.value =
+            questionsList.map((e) => Question.fromJson(e)).toList();
       } else {
         print('Error: Questions not found in storage. Using an empty list.');
         questions.value = []; // Set a default value
       }
-
-      if (selectedAnswersJson != null) {
-        selectedAnswers.value = (jsonDecode(selectedAnswersJson) as List<dynamic>).cast<String?>();
-      } else {
-        print('Error: Selected Answers not found in storage. Using an empty list.');
-        selectedAnswers.value = []; // Set a default value
-      }
-
     } catch (e) {
       print('Error loading exam data: $e');
     } finally {
-      isLoading.value = false;
       update();
     }
   }
@@ -52,17 +59,27 @@ class EvaluationsController extends GetxController {
   Future<void> generateEvaluation() async {
     isLoading.value = true;
     try {
+      await loadExamData();
       final lesson = await storage.read(key: 'lesson') ?? '';
 
       final agent = Agent();
       final agentPrompts = AgentPrompts();
 
+      // overallEvaluation.value = (await storage.read(key: 'overallEvaluation'))!;
+      // weaknesses.value = (await storage.read(key: 'weaknesses'))!;
+      // advice.value = (await storage.read(key: 'advice'))!;
+
       overallEvaluation.value = await agent.initiateChat(
-          agentPrompts.overallEvaluationPrompt(score.value), '');
+          agentPrompts.overallEvaluationPrompt(score.value, questions, lesson),
+          '');
       weaknesses.value = await agent.initiateChat(
-          agentPrompts.weaknessesPrompt(questions.value, selectedAnswers.value, lesson), '');
+          agentPrompts.weaknessesPrompt(questions, lesson), '');
       advice.value = await agent.initiateChat(
-          agentPrompts.advicePrompt(questions.value, selectedAnswers.value, lesson), '');
+          agentPrompts.advicePrompt(questions, lesson), '');
+
+      storage.write(key: 'overallEvaluation', value: overallEvaluation.value);
+      storage.write(key: 'weaknesses', value: weaknesses.value);
+      storage.write(key: 'advice', value: advice.value);
     } catch (e) {
       print('Error generating evaluation: $e');
     } finally {
@@ -74,7 +91,7 @@ class EvaluationsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadExamData();
+    generateEvaluation();
   }
 
   @override
@@ -85,5 +102,3 @@ class EvaluationsController extends GetxController {
   @override
   void onClose() {}
 }
-
-// Question class and QuestionType enum remain unchanged (as they are already defined elsewhere)
