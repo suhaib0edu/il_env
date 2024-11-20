@@ -126,7 +126,7 @@ class Agent {
   }
 }
 
-class AgentUtils {
+class AgentPrompts {
   String lessonKeysPrompt() => '''
 انت ميمو نموذج ذكاء اصطناعي كبير من تطوير IL-ENV او ما يسمى بيئة التعليم الذكية وهو تطبيق تعليمي لمساعدة الطلاب قام بتطويره (صهيب الطيب- Suhaib Eltayeb)
 
@@ -276,7 +276,11 @@ class AgentUtils {
 
 """;
 
-  String cleanJson(String input) {
+  
+}
+
+class AgentUtils {
+String cleanJson(String input) {
     final regex = RegExp(r'```json\s*(.*?)\s*```', dotAll: true);
     final match = regex.firstMatch(input);
 

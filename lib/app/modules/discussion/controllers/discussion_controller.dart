@@ -47,7 +47,7 @@ class DiscussionController extends GetxController {
       isMakingRequest = true;
       update(['discussionView']);
       Agent agent = Agent();
-      String systemInstruction = AgentUtils().lessonDividerPrompt();
+      String systemInstruction = AgentPrompts().lessonDividerPrompt();
       var response = await agent.initiateChat(systemInstruction, lesson);
       var data = jsonDecode(response);
       var parts = data['content_parts'];
@@ -74,7 +74,7 @@ class DiscussionController extends GetxController {
       isThinking = true;
       update(['buildRequestIndicator']);
       Agent agent = Agent();
-      String systemInstruction = AgentUtils().deepExplanationPrompt();
+      String systemInstruction = AgentPrompts().deepExplanationPrompt();
 
       agent
           .initiateChat(systemInstruction, contentParts[currentPart - 1]['c'])
@@ -109,7 +109,7 @@ class DiscussionController extends GetxController {
       isThinking = true;
       update(['buildRequestIndicator']);
       Agent agent = Agent();
-      String systemInstruction = AgentUtils()
+      String systemInstruction = AgentPrompts()
           .exploreQuestionsPrompt(part: contentParts[currentPart - 1],oldQuestions: exploreQuestionsMap[currentPart]);
       agent
           .initiateChat(systemInstruction, contentParts[currentPart - 1]['c'])
@@ -135,7 +135,7 @@ class DiscussionController extends GetxController {
       isThinking = true;
       update(['buildRequestIndicator']);
       Agent agent = Agent();
-      String systemInstruction = AgentUtils()
+      String systemInstruction = AgentPrompts()
           .directQuestionPrompt(part: contentParts[currentPart - 1]);
       agent
           .initiateChat(systemInstruction, directQuestionController.text)

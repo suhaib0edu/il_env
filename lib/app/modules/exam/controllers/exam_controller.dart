@@ -134,7 +134,7 @@ class ExamController extends GetxController {
         }
 
         String systemInstruction =
-            AgentUtils().makerQuestionsPrompt(); // إعداد تعليمات النظام
+            AgentPrompts().makerQuestionsPrompt(); // إعداد تعليمات النظام
         Agent agent = Agent();
 
         // إرسال طلب إلى العميل للحصول على الأسئلة

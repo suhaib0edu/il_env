@@ -31,7 +31,7 @@ class LessonKeysController extends GetxController {
   getLessonKeys() async {
     isThinking.value = true;
     Agent agent = Agent();
-    String systemInstruction = AgentUtils().lessonKeysPrompt();
+    String systemInstruction = AgentPrompts().lessonKeysPrompt();
     var response = await agent.initiateChat(systemInstruction, lesson);
     var data = jsonDecode(response);
 
