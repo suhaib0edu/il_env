@@ -75,11 +75,14 @@ class ExamController extends GetxController {
   }
 
   // 15. إرسال الاختبار
-  void submitExam() {
+  void submitExam() async {
     try {
       isExamFinished.value = true;
       evaluateAnswers();
       // stopTimer();
+      await storage.write(key: 'score', value: score.value.toString());
+      await storage.write(key: 'questions', value: jsonEncode(questions));
+      await storage.write(key: 'selectedAnswers', value: jsonEncode(selectedAnswers));
     } catch (e) {
       debugPrint('Error submitting exam: $e');
     }
@@ -99,6 +102,7 @@ class ExamController extends GetxController {
           }
         }
       }
+      
     } catch (e) {
       debugPrint('Error evaluating answers: $e');
     }
@@ -273,6 +277,16 @@ class Question {
     required this.questionType,
     this.studentAnswer,
   });
+
+  factory Question.fromJson(Map<String, dynamic> json) {
+    return Question(
+      questionText: json['questionText'],
+      options: List<String>.from(json['options']),
+      correctAnswer: json['correctAnswer'],
+      questionType: QuestionType.values.byName(json['questionType']),
+      studentAnswer: json['studentAnswer']
+    );
+  }
 }
 
 enum QuestionType {
