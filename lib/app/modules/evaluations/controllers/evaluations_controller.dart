@@ -1,7 +1,5 @@
-import 'package:get/get.dart';
-import 'package:il_env/app/data/agent.dart';
 import 'package:il_env/app/modules/exam/controllers/exam_controller.dart';
-import 'package:il_env/index.dart'; // Import the index file
+import 'package:il_env/index.dart'; 
 
 class EvaluationsController extends GetxController {
   RxString overallEvaluation = ''.obs;
@@ -16,7 +14,7 @@ class EvaluationsController extends GetxController {
       final score = examController.score.value;
       final questions = examController.questions;
       final answers = examController.selectedAnswers;
-      final lesson = await storage.read(key: 'lesson') ?? ''; // Use the imported storage
+      final lesson = await storage.read(key: 'lesson') ?? ''; 
 
       final agent = Agent();
       final agentPrompts = AgentPrompts();
@@ -29,7 +27,6 @@ class EvaluationsController extends GetxController {
           agentPrompts.advicePrompt(questions, answers, lesson), '');
     } catch (e) {
       print('Error generating evaluation: $e'); 
-      // Handle error appropriately, e.g., show an error message
     } finally {
       isLoading.value = false;
       update();
