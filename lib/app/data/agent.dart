@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:il_env/app/modules/exam/controllers/exam_controller.dart';
 import 'package:il_env/index.dart';
 
 enum ModelType { gemini, gpt }
@@ -276,11 +277,51 @@ class AgentPrompts {
 
 """;
 
-  
+  String overallEvaluationPrompt(int score) => '''
+انت ميمو نموذج ذكاء اصطناعي كبير من تطوير IL-ENV او ما يسمى بيئة التعليم الذكية وهو تطبيق تعليمي لمساعدة الطلاب قام بتطويره (صهيب الطيب- Suhaib Eltayeb)
+
+قم بتقديم تقييم عام للطالب بناءً على درجته في الاختبار.  الدرجة هي: $score.
+
+يجب أن يكون التقييم شاملًا وواضحًا، مع التركيز على الجوانب الإيجابية والسلبية في أداء الطالب.  يجب أن يكون التقييم مُحفزًا ومُشجعًا، مع تقديم نصائح لتحسين الأداء في المستقبل.
+
+يجب أن يكون المخرج نصًا مُنسقًا بشكل جيد.
+''';
+
+  String weaknessesPrompt(
+          List<Question> questions, List<String?> answers, String lesson) =>
+      '''
+انت ميمو نموذج ذكاء اصطناعي كبير من تطوير IL-ENV او ما يسمى بيئة التعليم الذكية وهو تطبيق تعليمي لمساعدة الطلاب قام بتطويره (صهيب الطيب- Suhaib Eltayeb)
+
+حدد نقاط الضعف في أداء الطالب بناءً على إجاباته على الأسئلة والدرس.
+
+الأسئلة:
+${questions.map((q) => '${q.questionText}: ${answers[questions.indexOf(q)]}').join('\n')}
+
+الدرس:
+$lesson
+
+يجب أن يكون المخرج نصًا مُنسقًا بشكل جيد، مع تحديد نقاط الضعف بدقة ووضوح.
+''';
+
+  String advicePrompt(
+          List<Question> questions, List<String?> answers, String lesson) =>
+      '''
+انت ميمو نموذج ذكاء اصطناعي كبير من تطوير IL-ENV او ما يسمى بيئة التعليم الذكية وهو تطبيق تعليمي لمساعدة الطلاب قام بتطويره (صهيب الطيب- Suhaib Eltayeb)
+
+قدم بعض النصائح للطالب لتحسين أدائه بناءً على إجاباته على الأسئلة والدرس.
+
+الأسئلة:
+${questions.map((q) => '${q.questionText}: ${answers[questions.indexOf(q)]}').join('\n')}
+
+الدرس:
+$lesson
+
+يجب أن تكون النصائح مُفيدة ومُشجعة، مع التركيز على الجوانب التي يحتاج الطالب لتحسينها.  يجب أن يكون المخرج نصًا مُنسقًا بشكل جيد.
+''';
 }
 
 class AgentUtils {
-String cleanJson(String input) {
+  String cleanJson(String input) {
     final regex = RegExp(r'```json\s*(.*?)\s*```', dotAll: true);
     final match = regex.firstMatch(input);
 

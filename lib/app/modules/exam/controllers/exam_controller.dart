@@ -249,6 +249,8 @@ class ExamController extends GetxController {
         return QuestionType.trueFalse;
       case 'essay':
         return QuestionType.essay;
+      case 'matching':
+        return QuestionType.matching;
       case 'comprehension':
         return QuestionType.comprehension;
       default:
