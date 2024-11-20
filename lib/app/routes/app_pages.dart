@@ -6,6 +6,8 @@ import '../modules/evaluations/bindings/evaluations_binding.dart';
 import '../modules/evaluations/views/evaluations_view.dart';
 import '../modules/exam/bindings/exam_binding.dart';
 import '../modules/exam/views/exam_view.dart';
+import '../modules/flash_cards/bindings/flash_cards_binding.dart';
+import '../modules/flash_cards/views/flash_cards_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/lesson_keys/bindings/lesson_keys_binding.dart';
@@ -57,6 +59,11 @@ class AppPages {
       name: _Paths.STUDY_CENTER,
       page: () => const StudyCenterView(),
       binding: StudyCenterBinding(),
+    ),
+    GetPage(
+      name: _Paths.FLASH_CARDS,
+      page: () => const FlashCardsView(),
+      binding: FlashCardsBinding(),
     ),
   ];
 }
