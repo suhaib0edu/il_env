@@ -6,6 +6,7 @@ class FlashCardsController extends GetxController {
   final Agent agent = Agent();
   final AgentPrompts prompts = AgentPrompts();
   bool showAnswer = false;
+  int currentIndex = 0;
 
   @override
   void onInit() {
@@ -21,7 +22,11 @@ class FlashCardsController extends GetxController {
     }
     String flashcardDataJson = await agent.initiateChat(
         prompts.generateFlashcardsPrompt(lessonContent), "");
+    
+    // String flashcardDataJsonx = await storage.read(key: 'flashcardDataJson')??'';
+    // String flashcardDataJson = jsonDecode(flashcardDataJsonx);
     try {
+      // await storage.write(key: 'flashcardDataJson', value: jsonEncode(flashcardDataJson.toString()));
       final List<dynamic> flashcardList = jsonDecode(flashcardDataJson);
       flashcards = flashcardList.cast<Map<String, dynamic>>();
     } catch (e) {
@@ -32,8 +37,24 @@ class FlashCardsController extends GetxController {
     ]);
   }
 
-  void toggleAnswer(int index) {
+  void toggleAnswer() {
     showAnswer = !showAnswer;
-    update(['flashcards', index]); 
+    update(['flashcards']);
+  }
+
+  void nextCard() {
+    if (currentIndex < flashcards.length - 1) {
+      currentIndex++;
+      showAnswer = false;
+      update(['flashcards']);
+    }
+  }
+
+  void previousCard() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      showAnswer = false;
+      update(['flashcards']);
+    }
   }
 }
