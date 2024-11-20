@@ -8,7 +8,7 @@ class FlashCardsView extends GetView<FlashCardsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flash Cards'),
+        title: Text(translateKeyTr(TranslationKey.keyFlashcards)),
       ),
       body: GetBuilder<FlashCardsController>(
         id: 'flashcards',
@@ -33,7 +33,8 @@ class FlashCardsView extends GetView<FlashCardsController> {
                             children: [
                               Text(
                                 controller.flashcards[controller.currentIndex]
-                                    ['question'],
+                                    ['question']
+                                    .tr,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.primaryColor,
@@ -48,12 +49,13 @@ class FlashCardsView extends GetView<FlashCardsController> {
                               Visibility(
                                 visible: controller.showAnswer,
                                 child: Text(
-                                    controller
-                                            .flashcards[controller.currentIndex]
-                                        ['answer'],
-                                    style: TextStyle(
-                                      color: AppColors.primaryColor,
-                                    )),
+                                  controller.flashcards[controller.currentIndex]
+                                      ['answer']
+                                      .tr,
+                                  style: TextStyle(
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -67,11 +69,11 @@ class FlashCardsView extends GetView<FlashCardsController> {
                     children: [
                       ElevatedButton(
                         onPressed: controller.previousCard,
-                        child: const Text('Previous'),
+                        child: Text(translateKeyTr(TranslationKey.keyPrevious)),
                       ),
                       ElevatedButton(
                         onPressed: controller.nextCard,
-                        child: const Text('Next'),
+                        child: Text(translateKeyTr(TranslationKey.keyNext)),
                       ),
                     ],
                   ),

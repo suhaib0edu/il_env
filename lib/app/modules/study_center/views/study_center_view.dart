@@ -4,7 +4,7 @@ import '../controllers/study_center_controller.dart';
 
 class StudyCenterView extends GetView<StudyCenterController> {
   const StudyCenterView({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,11 +14,21 @@ class StudyCenterView extends GetView<StudyCenterController> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buildCustomTextButton(text: 'مفاتيح الدرس',onPressed: () => Get.toNamed(Routes.LESSON_KEYS),),
-              _buildCustomTextButton(text: 'ذاكر مع AI',onPressed: () => Get.toNamed(Routes.DISCUSSION),),
-              _buildCustomTextButton(text: 'اختبرني',onPressed: () => Get.toNamed(Routes.EXAM),),
-              _buildCustomTextButton(text: 'بطاقات الحفظ',onPressed: () => Get.toNamed(Routes.FLASH_CARDS),),
-              _buildCustomTextButton(text: 'الصفحة الرئيسية',onPressed: () => Get.offAllNamed(Routes.HOME),),
+              _buildCustomTextButton(
+                  text: translateKeyTr(TranslationKey.keyLessonKeys),
+                  onPressed: () => Get.toNamed(Routes.LESSON_KEYS)),
+              _buildCustomTextButton(
+                  text: translateKeyTr(TranslationKey.keyStudyWithAI),
+                  onPressed: () => Get.toNamed(Routes.DISCUSSION)),
+              _buildCustomTextButton(
+                  text: translateKeyTr(TranslationKey.keyTestMe),
+                  onPressed: () => Get.toNamed(Routes.EXAM)),
+              _buildCustomTextButton(
+                  text: translateKeyTr(TranslationKey.keyFlashcards),
+                  onPressed: () => Get.toNamed(Routes.FLASH_CARDS)),
+              _buildCustomTextButton(
+                  text: translateKeyTr(TranslationKey.keyHomePage),
+                  onPressed: () => Get.offAllNamed(Routes.HOME)),
             ],
           ),
         ),
@@ -26,11 +36,14 @@ class StudyCenterView extends GetView<StudyCenterController> {
     );
   }
 
-  Widget _buildCustomTextButton({required String text,void Function()? onPressed}) {
+  Widget _buildCustomTextButton(
+      {required String text, void Function()? onPressed}) {
     return Padding(
-      padding:  EdgeInsets.all(8.0),
-      child: CustomTextButton(text: text,onPressed: onPressed,),
-      
+      padding: EdgeInsets.all(8.0),
+      child: CustomTextButton(
+        text: text,
+        onPressed: onPressed,
+      ),
     );
   }
 }

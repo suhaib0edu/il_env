@@ -43,7 +43,7 @@ class HomeView extends GetView<HomeController> {
             const SizedBox(height: 30),
             Center(
               child: Text(
-                'by Suhaib Eltayeb \n V=1.0.2',
+                'by Suhaib Eltayeb \n V=1.0.3',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 9,

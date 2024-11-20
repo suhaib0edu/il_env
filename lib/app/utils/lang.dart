@@ -30,6 +30,19 @@ class TranslationsService extends Translations {
           'keyDirectQuestion': 'Direct Question',
           'keySuccessCopied': 'Copied to clipboard',
           'keyExam': 'Exam',
+          'keyLessonKeys': 'Lesson Keys',
+          'keyStudyWithAI': 'Study with AI',
+          'keyTestMe': 'Test Me',
+          'keyFlashcards': 'Flashcards',
+          'keyHomePage': 'Home Page',
+          'keyPrevious': 'Previous',
+          'keyNext': 'Next',
+          'keySubmitExam': 'Submit Exam',
+          'keyTrue': 'True',
+          'keyFalse': 'False',
+          'keyWriteYourAnswerHere': 'Write your answer here',
+          'keyRetryExam': 'Retry Exam',
+          'keyNewExam': 'New Exam'
         },
         'ar_SA': {
           'keyHelpText': 'ماذا سنتعلم اليوم؟',
@@ -58,6 +71,19 @@ class TranslationsService extends Translations {
           'keyDirectQuestion': 'سؤال مباشر',
           'keySuccessCopied': 'تم النسخ إلى الحافظة',
           'keyExam': 'اختبار',
+          'keyLessonKeys': 'مفاتيح الدرس',
+          'keyStudyWithAI': 'ذاكر مع AI',
+          'keyTestMe': 'اختبرني',
+          'keyFlashcards': 'بطاقات الحفظ',
+          'keyHomePage': 'الصفحة الرئيسية',
+          'keyPrevious': 'السابق',
+          'keyNext': 'التالي',
+          'keySubmitExam': 'تقديم الاختبار',
+          'keyTrue': 'صحيح',
+          'keyFalse': 'خطأ',
+          'keyWriteYourAnswerHere': 'اكتب إجابتك هنا',
+          'keyRetryExam': 'إعادة الاختبار',
+          'keyNewExam': 'اختبار جديد'
         },
       };
 }
@@ -86,6 +112,19 @@ enum TranslationKey {
   keyDirectQuestion,
   keySuccessCopied,
   keyExam,
+  keyLessonKeys,
+  keyStudyWithAI,
+  keyTestMe,
+  keyFlashcards,
+  keyHomePage,
+  keyPrevious,
+  keyNext,
+  keySubmitExam,
+  keyWriteYourAnswerHere,
+  keyRetryExam,
+  keyNewExam,
+  keyTrue,
+  keyFalse
 }
 
 String translateKeyTr(TranslationKey key) {

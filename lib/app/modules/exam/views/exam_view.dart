@@ -1,4 +1,3 @@
-import 'package:il_env/app/widgets/custom_spinKit_wave_spinner.dart';
 import 'package:il_env/index.dart';
 import '../controllers/exam_controller.dart';
 
@@ -55,7 +54,7 @@ class ExamView extends GetView<ExamController> {
         children: [
           Spacer(),
           Text(
-            "النتيجة النهائية: ${controller.score.value} من ${controller.questions.length}",
+            "${controller.score.value} / ${controller.questions.length}",
             style: TextStyle(fontSize: 22),
           ),
           Spacer(),
@@ -73,9 +72,9 @@ class ExamView extends GetView<ExamController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _buildResultButton(Icons.home_rounded, "الصفحة الرئيسية", controller.goToHome),
-        _buildResultButton(Icons.quiz, "اختبار جديد", controller.createNewTest),
-        _buildResultButton(Icons.refresh, "إعادة الاختبار", controller.loadLastTest),
+        _buildResultButton(Icons.home_rounded, translateKeyTr(TranslationKey.keyHomePage), controller.goToHome),
+        _buildResultButton(Icons.quiz, translateKeyTr(TranslationKey.keyNewExam), controller.createNewTest),
+        // _buildResultButton(Icons.refresh, translateKeyTr(TranslationKey.keyRetryExam), controller.loadLastTest),
       ],
     );
   }
@@ -151,7 +150,7 @@ class ExamView extends GetView<ExamController> {
         LinearProgressIndicator(value: controller.progressBar.value),
         SizedBox(height: 10),
         Text(
-          'التقدم: ${(controller.progressBar.value * 100).toStringAsFixed(0)}%',
+          '${(controller.progressBar.value * 100).toStringAsFixed(0)}%',
           style: TextStyle(fontSize: 16),
         ),
       ],
@@ -173,7 +172,7 @@ class ExamView extends GetView<ExamController> {
         ),
         ElevatedButton(
           onPressed: controller.submitExam,
-          child: Text('تقديم الاختبار'),
+          child: Text(translateKeyTr(TranslationKey.keySubmitExam)),
         ),
       ],
     );
@@ -228,8 +227,8 @@ class ExamView extends GetView<ExamController> {
   Widget _buildTrueFalseQuestion(Question question) {
     return Column(
       children: [
-        _buildQuestionOption('صحيح'),
-        _buildQuestionOption('خطأ'),
+        _buildQuestionOption(translateKeyTr(TranslationKey.keyTrue)),
+        _buildQuestionOption(translateKeyTr(TranslationKey.keyFalse)),
       ],
     );
   }
@@ -237,7 +236,7 @@ class ExamView extends GetView<ExamController> {
   // بناء واجهة السؤال المقال
   Widget _buildEssayQuestion(Question question) {
     return TextField(
-      decoration: InputDecoration(labelText: 'اكتب إجابتك هنا'),
+      decoration: InputDecoration(labelText: translateKeyTr(TranslationKey.keyWriteYourAnswerHere)),
       onChanged: (value) {
         controller.questions[controller.currentQuestionIndex.value].studentAnswer = value;
       },
