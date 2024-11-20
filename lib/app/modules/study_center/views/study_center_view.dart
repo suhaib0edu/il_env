@@ -17,7 +17,7 @@ class StudyCenterView extends GetView<StudyCenterController> {
               _buildCustomTextButton(text: 'مفاتيح الدرس',onPressed: () => Get.toNamed(Routes.LESSON_KEYS),),
               _buildCustomTextButton(text: 'ذاكر مع AI',onPressed: () => Get.toNamed(Routes.DISCUSSION),),
               _buildCustomTextButton(text: 'اختبرني',onPressed: () => Get.toNamed(Routes.EXAM),),
-              _buildCustomTextButton(text: 'قيمني',onPressed: () => Get.toNamed(Routes.EVALUATIONS),),
+              _buildCustomTextButton(text: 'بطاقات الحفظ',onPressed: () => Get.toNamed(Routes.FLASH_CARDS),),
               _buildCustomTextButton(text: 'الصفحة الرئيسية',onPressed: () => Get.offAllNamed(Routes.HOME),),
             ],
           ),
