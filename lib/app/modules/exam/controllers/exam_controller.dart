@@ -5,9 +5,7 @@ class ExamController extends GetxController {
   // 1. قائمة الأسئلة
   RxList<Question> questions = RxList<Question>();
 
-  // 2. الإجابات المختارة
-  RxList<String?> selectedAnswers =
-      RxList<String?>.filled(10, null, growable: true);
+
 
   // 3. الوقت المتبقي
   RxInt remainingTime = 900.obs; // 15 دقيقة بالثواني (15 * 60)
@@ -64,7 +62,7 @@ class ExamController extends GetxController {
 
   // 13. اختيار إجابة
   void selectAnswer(int questionIndex, String? answer) {
-    selectedAnswers[questionIndex] = answer;
+    questions[questionIndex].studentAnswer = answer;
     update();
   }
 
@@ -80,9 +78,7 @@ class ExamController extends GetxController {
       isExamFinished.value = true;
       evaluateAnswers();
       // stopTimer();
-      await storage.write(key: 'score', value: score.value.toString());
-      await storage.write(key: 'questions', value: jsonEncode(questions));
-      await storage.write(key: 'selectedAnswers', value: jsonEncode(selectedAnswers));
+
     } catch (e) {
       debugPrint('Error submitting exam: $e');
     }
@@ -90,19 +86,20 @@ class ExamController extends GetxController {
   }
 
   // 16. تقييم الإجابات
-  void evaluateAnswers() {
+  Future<void> evaluateAnswers() async {
     try {
       score.value = 0;
-      if (selectedAnswers[0] != null) {
-        for (int i = 0; i < questions.length; i++) {
-          if (selectedAnswers[i] != null) {
-            if (selectedAnswers[i] == questions[i].correctAnswer) {
-              score.value++;
-            }
+      for (int i = 0; i < questions.length; i++) {
+        if (questions[i].studentAnswer != null) {
+          if (questions[i].studentAnswer == questions[i].correctAnswer) {
+            score.value++;
           }
         }
       }
-      
+      await storage.write(key: 'score', value: score.value.toString());
+      List<Map<String, dynamic>> jsonList = questions.map((question) => question.toJson()).toList();
+      await storage.write(key: 'questions', value: jsonEncode(jsonList));
+
     } catch (e) {
       debugPrint('Error evaluating answers: $e');
     }
@@ -237,7 +234,6 @@ class ExamController extends GetxController {
     super.onClose();
     stopTimer();
     questions.clear();
-    selectedAnswers.clear();
     remainingTime.value = 900;
     progressBar.value = 0.0;
     score.value = 0;
@@ -280,12 +276,21 @@ class Question {
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
-      questionText: json['questionText'],
-      options: List<String>.from(json['options']),
-      correctAnswer: json['correctAnswer'],
-      questionType: QuestionType.values.byName(json['questionType']),
-      studentAnswer: json['studentAnswer']
-    );
+        questionText: json['questionText'],
+        options: List<String>.from(json['options']),
+        correctAnswer: json['correctAnswer'],
+        questionType: QuestionType.values.byName(json['questionType']),
+        studentAnswer: json['studentAnswer']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'questionText': questionText,
+      'options': options,
+      'correctAnswer': correctAnswer,
+      'studentAnswer': studentAnswer,
+      'questionType': questionType.name,
+    };
   }
 }
 

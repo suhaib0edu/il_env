@@ -239,7 +239,7 @@ class ExamView extends GetView<ExamController> {
     return TextField(
       decoration: InputDecoration(labelText: 'اكتب إجابتك هنا'),
       onChanged: (value) {
-        controller.selectedAnswers[controller.currentQuestionIndex.value] = value;
+        controller.questions[controller.currentQuestionIndex.value].studentAnswer = value;
       },
     );
   }
@@ -259,7 +259,7 @@ class ExamView extends GetView<ExamController> {
       title: Text(option),
       leading: Radio<String>(
         value: option,
-        groupValue: controller.selectedAnswers[controller.currentQuestionIndex.value],
+        groupValue: controller.questions[controller.currentQuestionIndex.value].studentAnswer,
         onChanged: (value) {
           controller.selectAnswer(controller.currentQuestionIndex.value, value);
         },
