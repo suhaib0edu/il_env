@@ -99,7 +99,7 @@ class ExamController extends GetxController {
       await storage.write(key: 'score', value: score.value.toString());
       List<Map<String, dynamic>> jsonList = questions.map((question) => question.toJson()).toList();
       await storage.write(key: 'questions', value: jsonEncode(jsonList));
-
+      Get.toNamed(Routes.EVALUATIONS);
     } catch (e) {
       debugPrint('Error evaluating answers: $e');
     }
