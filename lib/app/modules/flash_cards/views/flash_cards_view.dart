@@ -13,7 +13,7 @@ class FlashCardsView extends GetView<FlashCardsController> {
       body: GetBuilder<FlashCardsController>(
         id: 'flashcards',
         builder: (controller) => controller.flashcards.isEmpty
-            ? const Center(child: CircularProgressIndicator())
+            ? const Center(child: CustomSpinKitWaveSpinner(color: AppColors.primaryColor,))
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -33,8 +33,7 @@ class FlashCardsView extends GetView<FlashCardsController> {
                             children: [
                               Text(
                                 controller.flashcards[controller.currentIndex]
-                                    ['question']
-                                    .tr,
+                                    ['question'],
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.primaryColor,
@@ -50,8 +49,7 @@ class FlashCardsView extends GetView<FlashCardsController> {
                                 visible: controller.showAnswer,
                                 child: Text(
                                   controller.flashcards[controller.currentIndex]
-                                      ['answer']
-                                      .tr,
+                                      ['answer'],
                                   style: TextStyle(
                                     color: AppColors.primaryColor,
                                   ),
