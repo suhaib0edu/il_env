@@ -7,7 +7,7 @@ class EvaluationsView extends GetView<EvaluationsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('تقييم'),
+        title: const Text('التقييم'),
         centerTitle: true,
       ),
       body: Obx(() {
@@ -22,31 +22,27 @@ class EvaluationsView extends GetView<EvaluationsController> {
               children: [
                 GetBuilder<EvaluationsController>(
                   id: 'overallEvaluation',
-                  builder: (controller) => _buildSection(
-                    'التقييم العام:',
-                    controller.overallEvaluation.value,
-                    controller.isVisibleOverallEvaluation.value,
-                    () => controller.toggleVisibilityOverallEvaluation(),
-                  ),
+                  builder: (controller) =>
+                      CustomMarkdown(data: controller.overallEvaluation.value),
                 ),
-                GetBuilder<EvaluationsController>(
-                  id: 'weaknesses',
-                  builder: (controller) => _buildSection(
-                    'نقاط الضعف:',
-                    controller.weaknesses.value,
-                    controller.isVisibleWeaknesses.value,
-                    () => controller.toggleVisibilityWeaknesses(),
-                  ),
-                ),
-                GetBuilder<EvaluationsController>(
-                  id: 'advice',
-                  builder: (controller) => _buildSection(
-                    'النصائح:',
-                    controller.advice.value,
-                    controller.isVisibleAdvice.value,
-                    () => controller.toggleVisibilityAdvice(),
-                  ),
-                ),
+                // GetBuilder<EvaluationsController>(
+                //   id: 'weaknesses',
+                //   builder: (controller) => _buildSection(
+                //     'نقاط الضعف:',
+                //     controller.weaknesses.value,
+                //     controller.isVisibleWeaknesses.value,
+                //     () => controller.toggleVisibilityWeaknesses(),
+                //   ),
+                // ),
+                // GetBuilder<EvaluationsController>(
+                //   id: 'advice',
+                //   builder: (controller) => _buildSection(
+                //     'النصائح:',
+                //     controller.advice.value,
+                //     controller.isVisibleAdvice.value,
+                //     () => controller.toggleVisibilityAdvice(),
+                //   ),
+                // ),
               ],
             ),
           );

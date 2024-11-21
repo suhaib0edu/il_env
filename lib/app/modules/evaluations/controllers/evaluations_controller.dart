@@ -70,16 +70,24 @@ class EvaluationsController extends GetxController {
       // advice.value = (await storage.read(key: 'advice'))!;
 
       overallEvaluation.value = await agent.initiateChat(
-          agentPrompts.overallEvaluationPrompt(score.value, questions, lesson),
-          '');
-      weaknesses.value = await agent.initiateChat(
-          agentPrompts.weaknessesPrompt(questions, lesson), '');
-      advice.value = await agent.initiateChat(
-          agentPrompts.advicePrompt(questions, lesson), '');
+          agentPrompts.overallEvaluationPrompt(lesson),
+          '''
+الدرجة هي: ${score.value}.
+
+عدد الاسئلة : ${questions.length}
+
+الأسئلة:
+${questions.map((q) => ':السوال ${q.questionText}: الاجابة الصحيحة : ${q.correctAnswer} اجابة الطالب ${q.studentAnswer}').join('\n')}
+
+''');
+      // weaknesses.value = await agent.initiateChat(
+      //     agentPrompts.weaknessesPrompt(questions, lesson), '');
+      // advice.value = await agent.initiateChat(
+      //     agentPrompts.advicePrompt(questions, lesson), '');
 
       storage.write(key: 'overallEvaluation', value: overallEvaluation.value);
-      storage.write(key: 'weaknesses', value: weaknesses.value);
-      storage.write(key: 'advice', value: advice.value);
+      // storage.write(key: 'weaknesses', value: weaknesses.value);
+      // storage.write(key: 'advice', value: advice.value);
     } catch (e) {
       print('Error generating evaluation: $e');
     } finally {
