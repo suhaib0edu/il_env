@@ -16,7 +16,7 @@ void main() async {
       theme: appTheme(),
       translations: TranslationsService(),
       locale: Locale(langCode),
-      fallbackLocale: Locale('en', 'US'),
+      fallbackLocale: Locale('ar', 'SA'),
     ),
   );
 }
