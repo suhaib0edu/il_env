@@ -5,8 +5,6 @@ class ExamController extends GetxController {
   // 1. قائمة الأسئلة
   RxList<Question> questions = RxList<Question>();
 
-
-
   // 3. الوقت المتبقي
   RxInt remainingTime = 900.obs; // 15 دقيقة بالثواني (15 * 60)
 
@@ -78,7 +76,6 @@ class ExamController extends GetxController {
       isExamFinished.value = true;
       evaluateAnswers();
       // stopTimer();
-
     } catch (e) {
       debugPrint('Error submitting exam: $e');
     }
@@ -97,8 +94,10 @@ class ExamController extends GetxController {
         }
       }
       await storage.write(key: 'score', value: score.value.toString());
-      List<Map<String, dynamic>> jsonList = questions.map((question) => question.toJson()).toList();
+      List<Map<String, dynamic>> jsonList =
+          questions.map((question) => question.toJson()).toList();
       await storage.write(key: 'questions', value: jsonEncode(jsonList));
+      Get.offAllNamed(Routes.STUDY_CENTER);
       Get.toNamed(Routes.EVALUATIONS);
     } catch (e) {
       debugPrint('Error evaluating answers: $e');
@@ -222,6 +221,7 @@ class ExamController extends GetxController {
   void onInit() {
     super.onInit();
     // makeQuestions();
+    createNewTest();
   }
 
   @override

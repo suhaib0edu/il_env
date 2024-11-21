@@ -12,70 +12,11 @@ class ExamView extends GetView<ExamController> {
         centerTitle: true,
       ),
       body: GetBuilder<ExamController>(builder: (ctr) {
-        if (controller.questions.isEmpty) {
-          // إضافة الأسئلة وتحديث الصفحة
-          return _buildStartExamButton();
-        }
-        if (controller.isExamFinished.value) {
-          // عرض النتيجة بعد انتهاء الاختبار
-          return _buildExamResult();
-        } else {
-          // عرض الاختبار
+        if (controller.questions.isNotEmpty) {
           return _buildExamInProgress();
         }
+          return Center(child: CustomSpinKitWaveSpinner(color: AppColors.primaryColor));
       }),
-    );
-  }
-
-  // جزء عرض زر بدء الاختبار
-  Widget _buildStartExamButton() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Spacer(),
-          Obx(()=> controller.isExamStarted.value
-              ? CustomSpinKitWaveSpinner(size: 80,color: AppColors.primaryColor):SizedBox()),
-          Spacer(),
-          _buildExamResultActions(),
-          SizedBox(
-            height: 30,
-          )
-        ],
-      ),
-    );
-  }
-
-  // جزء عرض النتيجة بعد الاختبار
-  Widget _buildExamResult() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Spacer(),
-          Text(
-            "${controller.score.value} / ${controller.questions.length}",
-            style: TextStyle(fontSize: 22),
-          ),
-          Spacer(),
-          _buildExamResultActions(),
-          SizedBox(
-            height: 30,
-          )
-        ],
-      ),
-    );
-  }
-
-  // جزء عرض الأزرار بعد إتمام الاختبار
-  Widget _buildExamResultActions() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        _buildResultButton(Icons.home_rounded, translateKeyTr(TranslationKey.keyHomePage), controller.goToHome),
-        _buildResultButton(Icons.quiz, translateKeyTr(TranslationKey.keyNewExam), controller.createNewTest),
-        // _buildResultButton(Icons.refresh, translateKeyTr(TranslationKey.keyRetryExam), controller.loadLastTest),
-      ],
     );
   }
 
