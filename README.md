@@ -1,16 +1,44 @@
 # il_env
 
-A new Flutter project.
+## نظرة عامة
 
-## Getting Started
+تطبيق il_env هو تطبيق تعليمي متعدد المنصات تم بناؤه باستخدام Flutter و GetX.  يستخدم واجهات برمجة تطبيقات (APIs)  مثل Gemini و OpenAI  لتوليد محتوى تعليمي ديناميكيًا.  يقدم التطبيق وظائف متعددة تشمل: المناقشات، التقييمات، الامتحانات، بطاقات الفلاش، الصفحة الرئيسية، مفاتيح الدروس، الإعدادات، ومركز الدراسة. التطبيق مصمم لمساعدة المستخدمين في إنشاء محتوى تعليمي أو الإجابة على أسئلة.
 
-This project is a starting point for a Flutter application.
+## المميزات
 
-A few resources to get you started if this is your first Flutter project:
+- **توليد محتوى تعليمي ديناميكي:**  باستخدام Gemini و OpenAI.
+- **واجهات متعددة:**  للمذاكرة، التقييمات، الامتحانات، وبطاقات الفلاش.
+- **تطبيقات متعددة المنصات:**  يعمل على أجهزة Android و iOS و Web.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## المتطلبات
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Dart SDK:** الإصدار 3.5.0 أو أحدث.
+- **Flutter:** الإصدار 3.24.0 أو أحدث.
+
+## كيفية البدء
+
+1. **استنساخ المستودع:**  `git clone [رابط المستودع]`
+2. **تنزيل التبعيات:** `cd il_env` ثم `flutter pub get`
+3. **تشغيل التطبيق:** `flutter run`
+
+## هيكل المشروع
+
+يستخدم المشروع بنية مجلدات معيارية لـ Flutter مع GetX.  المجلد الرئيسي `lib` يحتوي على:
+
+- `app/`: يحتوي على منطق التطبيق، مقسم إلى:
+    - `data/`:  يحتوي على نماذج البيانات وخدمات API.
+    - `modules/`:  يحتوي على وحدات التطبيق المختلفة (مثل `discussion`, `exam`, `settings`).  كل وحدة تحتوي على مجلدات `bindings`, `controllers`, و `views`.
+    - `routes/`:  يحتوي على تعريفات مسارات التطبيق.
+    - `utils/`:  يحتوي على أدوات مساعدة.
+    - `widgets/`:  يحتوي على مكونات واجهة المستخدم.
+
+- `main.dart`:  نقطة الدخول الرئيسية للتطبيق.
+
+## التقنيات المستخدمة
+
+- **Flutter:**  لبناء واجهة المستخدم.
+- **Dart:**  لغة البرمجة.
+- **Firebase:**  لخدمات الخلفية والتخزين.
+- **GetX:**  إطار عمل لإدارة الحالة.
+- **OpenAI و Gemini APIs:**  لتوليد المحتوى.
+- **Flutter Secure Storage:**  للتخزين الآمن للبيانات.
