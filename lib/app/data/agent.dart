@@ -108,7 +108,7 @@ class Agent {
       final selectedModelType =
           savedModel == ModelType.gpt.name ? ModelType.gpt : ModelType.gemini;
 
-      final apiKey = await storage.read(key: selectedModelType.name) ?? '';
+      final apiKey = await storage.read(key: selectedModelType.name) ?? 'AIzaSyDDGPyK8kwBGrWXuwUSlqlT2cw8U6XDVPE';
       if (apiKey.isEmpty || apiKey.length < 5) {
         errorSnackbar(TranslationKey.keyApiKeyError);
         Get.offAllNamed(Routes.HOME);
