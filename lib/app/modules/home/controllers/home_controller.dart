@@ -1,3 +1,4 @@
+import 'package:il_env/app/data/api_service.dart';
 import 'package:il_env/index.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -26,20 +27,21 @@ class HomeController extends GetxController {
     if (lessonController.text.isNotEmpty) {
       storage.write(key: 'lesson', value: lessonController.text);
       Get.toNamed(Routes.STUDY_CENTER);
-    }else{
+    } else {
       errorSnackbar(TranslationKey.keyLessonPrompt);
     }
   }
 
-  void processImage(String path) {}
+  void processImage(String path) async {
+    lessonController.text = await extractTextFromImage(path) ?? '0';
+  }
 
   void pickImage() async {
-
-          final ImagePicker picker = ImagePicker();
-          final XFile? image =
-              await picker.pickImage(source: ImageSource.gallery);
-          if (image != null) {
-            processImage(image.path);
-          }
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      print(image.path);
+      processImage(image.path);
+    }
   }
 }
