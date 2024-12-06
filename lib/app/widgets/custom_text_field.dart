@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final String labelText;
   final TextEditingController? controller;
   final Widget? suffixIcon;
+  final bool multsuffixIcon;
   final int? maxLength;
   final Function(String)? onChanged;
 
@@ -13,6 +14,7 @@ class CustomTextField extends StatelessWidget {
     required this.labelText,
     this.controller,
     this.suffixIcon,
+    this.multsuffixIcon = false,
     this.maxLength,
     this.onChanged,
   });
@@ -33,13 +35,18 @@ class CustomTextField extends StatelessWidget {
         ),
         filled: true,
         fillColor: AppColors.tertiaryColor,
-        suffixIcon: suffixIcon ?? _buildPasteButton(context),
+        suffixIcon: multsuffixIcon
+            ? Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+                children: [_buildPasteButton(context),suffixIcon!],
+              )
+            : suffixIcon ?? _buildPasteButton(context),
       ),
     );
   }
 
   Widget _buildPasteButton(BuildContext context) {
-    return IconButton(
+    return IconButton(      
       icon: Icon(Icons.paste_rounded),
       onPressed: () async {
         final clipboardData = await Clipboard.getData(Clipboard.kTextPlain);

@@ -94,13 +94,20 @@ class HomeView extends GetView<HomeController> {
 
   Widget _buildQuestionTextField() {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-        child: CustomTextField(
-          controller: controller.lessonController,
-          labelText: translateKeyTr(TranslationKey.keyLessonPrompt),
-          maxLength: 3500,
-        ));
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      child: CustomTextField(
+        controller: controller.lessonController,
+        labelText: translateKeyTr(TranslationKey.keyLessonPrompt),
+        maxLength: 3500,
+        multsuffixIcon: true,
+        suffixIcon: IconButton(
+        icon: const Icon(Icons.image, color: AppColors.primaryColor),
+        onPressed: controller.pickImage,
+      ),
+      ),
+    );
   }
+
 
   Widget _buildStudyLessonsButton(HomeController controller) {
     return CustomTextButton(

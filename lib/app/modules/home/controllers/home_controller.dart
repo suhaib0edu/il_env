@@ -1,4 +1,5 @@
 import 'package:il_env/index.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomeController extends GetxController {
   final lessonController = TextEditingController();
@@ -28,5 +29,17 @@ class HomeController extends GetxController {
     }else{
       errorSnackbar(TranslationKey.keyLessonPrompt);
     }
+  }
+
+  void processImage(String path) {}
+
+  void pickImage() async {
+
+          final ImagePicker picker = ImagePicker();
+          final XFile? image =
+              await picker.pickImage(source: ImageSource.gallery);
+          if (image != null) {
+            processImage(image.path);
+          }
   }
 }
