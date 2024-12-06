@@ -39,7 +39,9 @@ class TranslationsService extends Translations {
           'keyNext': 'Next',
           'keySubmitExam': 'Submit Exam',
           'keyTrue': 'True',
-          'keyFalse': 'False',
+          'keyFalse': 'False',          
+          'keyUploadImage': 'Upload Image',
+          'keySelectImage': 'Select Image',
           'keyWriteYourAnswerHere': 'Write your answer here',
           'keyRetryExam': 'Retry Exam',
           'keyNewExam': 'New Exam'
@@ -80,7 +82,9 @@ class TranslationsService extends Translations {
           'keyNext': 'التالي',
           'keySubmitExam': 'تقديم الاختبار',
           'keyTrue': 'صحيح',
-          'keyFalse': 'خطأ',
+          'keyFalse': 'خطأ',          
+          'keyUploadImage': 'تحميل صورة',
+          'keySelectImage': 'اختر صورة',
           'keyWriteYourAnswerHere': 'اكتب إجابتك هنا',
           'keyRetryExam': 'إعادة الاختبار',
           'keyNewExam': 'اختبار جديد'
@@ -124,7 +128,9 @@ enum TranslationKey {
   keyRetryExam,
   keyNewExam,
   keyTrue,
-  keyFalse
+  keyFalse,
+  keyUploadImage,
+  keySelectImage,
 }
 
 String translateKeyTr(TranslationKey key) {
