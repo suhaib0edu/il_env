@@ -100,9 +100,16 @@ class HomeView extends GetView<HomeController> {
         labelText: translateKeyTr(TranslationKey.keyLessonPrompt),
         maxLength: 3500,
         // multsuffixIcon: true,
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.image, color: AppColors.primaryColor),
-          onPressed: controller.pickImage,
+        suffixIcon: GetBuilder<HomeController>(
+          builder: (ctr) => controller.isLoading
+              ? CustomSpinKitWaveSpinner(
+                  color: AppColors.primaryColor,
+                  size: 30,
+                )
+              : IconButton(
+                  icon: const Icon(Icons.image, color: AppColors.primaryColor),
+                  onPressed: controller.pickImage,
+                ),
         ),
       ),
     );

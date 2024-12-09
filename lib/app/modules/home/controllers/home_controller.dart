@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 
 class HomeController extends GetxController {
   final lessonController = TextEditingController();
+  bool isLoading = false;
 
   void toggleLanguage() async {
     if (Get.locale?.languageCode == 'en') {
@@ -25,6 +26,8 @@ class HomeController extends GetxController {
   }
 
   void processImage(XFile? path) async {
+    isLoading = true; 
+    update(); 
     String? text = await extractTextFromImage(path);
     if (text != null) {
       String x = text;
@@ -32,6 +35,9 @@ class HomeController extends GetxController {
     } else {
       lessonController.text = '0';
     }
+
+    isLoading = false; 
+    update(); 
   }
 
   void pickImage() async {
