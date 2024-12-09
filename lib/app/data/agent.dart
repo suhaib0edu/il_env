@@ -104,11 +104,8 @@ class Agent {
   Future<String> initiateChat(
       String systemInstruction, String userMessage) async {
     try {
-      final savedModel = await storage.read(key: 'selectedModel');
-      final selectedModelType =
-          savedModel == ModelType.gpt.name ? ModelType.gpt : ModelType.gemini;
-
-      final apiKey = await storage.read(key: selectedModelType.name) ?? 'AIzaSyDDGPyK8kwBGrWXuwUSlqlT2cw8U6XDVPE';
+      final selectedModelType = await getSelectedModel();
+      final apiKey = getAPI(selectedModelType);
       if (apiKey.isEmpty || apiKey.length < 5) {
         errorSnackbar(TranslationKey.keyApiKeyError);
         Get.offAllNamed(Routes.HOME);
@@ -124,6 +121,16 @@ class Agent {
       debugPrint('Agent error initiateChat: $e');
       return '';
     }
+  }
+
+  getAPI(ModelType selectedModelType) async {
+    return await storage.read(key: selectedModelType.name) ??
+        'AIzaSyDDGPyK8kwBGrWXuwUSlqlT2cw8U6XDVPE';
+  }
+
+  getSelectedModel() async {
+    final savedModel = await storage.read(key: 'selectedModel');
+    return savedModel == ModelType.gpt.name ? ModelType.gpt : ModelType.gemini;
   }
 }
 
@@ -345,9 +352,7 @@ class AgentPrompts {
 هذا هو الدرس : $lesson
 ''';
 
-  String weaknessesPrompt(
-          List<Question> questions, String lesson) =>
-      '''
+  String weaknessesPrompt(List<Question> questions, String lesson) => '''
 انت ميمو نموذج ذكاء اصطناعي كبير و معلم ذكي للطلاب من تطوير IL-ENV او ما يسمى بيئة التعليم الذكية وهو تطبيق تعليمي لمساعدة الطلاب قام بتطويره (صهيب الطيب- Suhaib Eltayeb)
 
 حدد نقاط الضعف في أداء الطالب بناءً على إجاباته على الأسئلة والدرس.
@@ -361,9 +366,7 @@ $lesson
 يجب أن يكون المخرج نصًا مُنسقًا بشكل جيد، مع تحديد نقاط الضعف بدقة ووضوح ومراجعتها سريعا مع الطالب .
 ''';
 
-  String advicePrompt(
-          List<Question> questions, String lesson) =>
-      '''
+  String advicePrompt(List<Question> questions, String lesson) => '''
 انت ميمو نموذج ذكاء اصطناعي كبير و معلم ذكي للطلاب من تطوير IL-ENV او ما يسمى بيئة التعليم الذكية وهو تطبيق تعليمي لمساعدة الطلاب قام بتطويره (صهيب الطيب- Suhaib Eltayeb)
 
 قدم بعض النصائح للطالب لتحسين أدائه بناءً على إجاباته على الأسئلة والدرس.
