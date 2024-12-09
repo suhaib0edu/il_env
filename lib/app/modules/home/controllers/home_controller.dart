@@ -16,32 +16,24 @@ class HomeController extends GetxController {
   }
 
   studyLessons() async {
-//     String systemInstruction = '''
-// اسمك هو (ميمي - Mimi)
-// انت عبارة عن نموذج لغة كبير وذكي تعمل حاليا كجزاء من تطبيق تعليمي (IL-ENV)
-//  و يطلق عليه ايضا (بيئة  التعلم الذكية)
-//  الذي هو من تطوير (صهيب الطيب - Suhaib Eltayeb)
-// ''';
-    // Agent agent = Agent();
-    // await agent.initiateChat(systemInstruction, questionController.text);
     if (lessonController.text.isNotEmpty) {
       storage.write(key: 'lesson', value: lessonController.text);
       Get.toNamed(Routes.STUDY_CENTER);
-    } else {
+    }else{
       errorSnackbar(TranslationKey.keyLessonPrompt);
     }
   }
 
   void processImage(String path) async {
-    lessonController.text = await extractTextFromImage(path) ?? '0';
+    lessonController.text = await extractTextFromImage(path)??'0';
   }
 
   void pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      print(image.path);
-      processImage(image.path);
-    }
+          final ImagePicker picker = ImagePicker();
+          final XFile? image =
+              await picker.pickImage(source: ImageSource.gallery);
+          if (image != null) {
+            processImage(image.path);
+          }
   }
 }
