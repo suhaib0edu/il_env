@@ -19,21 +19,26 @@ class HomeController extends GetxController {
     if (lessonController.text.isNotEmpty) {
       storage.write(key: 'lesson', value: lessonController.text);
       Get.toNamed(Routes.STUDY_CENTER);
-    }else{
+    } else {
       errorSnackbar(TranslationKey.keyLessonPrompt);
     }
   }
 
-  void processImage(String path) async {
-    lessonController.text = await extractTextFromImage(path)??'0';
+  void processImage(XFile? path) async {
+    String? text = await extractTextFromImage(path);
+    if (text != null) {
+      String x = text;
+      lessonController.text = x;
+    } else {
+      lessonController.text = '0';
+    }
   }
 
   void pickImage() async {
-          final ImagePicker picker = ImagePicker();
-          final XFile? image =
-              await picker.pickImage(source: ImageSource.gallery);
-          if (image != null) {
-            processImage(image.path);
-          }
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      processImage(image);
+    }
   }
 }

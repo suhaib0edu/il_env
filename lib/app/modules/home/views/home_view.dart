@@ -100,10 +100,10 @@ class HomeView extends GetView<HomeController> {
         labelText: translateKeyTr(TranslationKey.keyLessonPrompt),
         maxLength: 3500,
         // multsuffixIcon: true,
-        // suffixIcon: IconButton(
-        //   icon: const Icon(Icons.image, color: AppColors.primaryColor),
-        //   onPressed: controller.pickImage,
-        // ),
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.image, color: AppColors.primaryColor),
+          onPressed: controller.pickImage,
+        ),
       ),
     );
   }
