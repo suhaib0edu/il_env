@@ -16,8 +16,6 @@ class TranslationsService extends Translations {
               'Please check your internet connection and try again.',
           'keyApiKeyError':
               'We could not connect to the model. Make sure to add your API key correctly or switch to a different provider.',
-          'keyApiKeyInfo':
-              'You can get your API key by visiting the following link: ',
           'keyLessonPrompt': 'Enter the lesson or article',
           'keyMainGoals': 'Main Goals',
           'keyCoreConcepts': 'Core Concepts',
@@ -44,7 +42,8 @@ class TranslationsService extends Translations {
           'keySelectImage': 'Select Image',
           'keyWriteYourAnswerHere': 'Write your answer here',
           'keyRetryExam': 'Retry Exam',
-          'keyNewExam': 'New Exam'
+          'keyNewExam': 'New Exam',
+          'keyCreateApiKey': 'Create Your API Key'
         },
         'ar_SA': {
           'keyHelpText': 'ماذا سنتعلم اليوم؟',
@@ -59,8 +58,7 @@ class TranslationsService extends Translations {
               'يرجى التحقق من الاتصال بالإنترنت والمحاولة مرة أخرى.',
           'keyApiKeyError':
               'لم نتمكن من الاتصال بالنموذج. تأكد من إضافة مفتاح API الخاص بك بشكل صحيح أو التبديل لمزود مختلف.',
-          'keyApiKeyInfo':
-              'يمكنك الحصول على مفتاح API الخاص بك من خلال زيارة الرابط التالي: ',
+
           'keyLessonPrompt': 'ضع الدرس أو المقالة',
           'keyMainGoals': 'الأهداف الرئيسية',
           'keyCoreConcepts': 'المفاهيم الأساسية',
@@ -87,7 +85,8 @@ class TranslationsService extends Translations {
           'keySelectImage': 'اختر صورة',
           'keyWriteYourAnswerHere': 'اكتب إجابتك هنا',
           'keyRetryExam': 'إعادة الاختبار',
-          'keyNewExam': 'اختبار جديد'
+          'keyNewExam': 'اختبار جديد',
+          'keyCreateApiKey': 'أنشئ مفتاح API الخاص بك'
         },
       };
 }
@@ -103,7 +102,6 @@ enum TranslationKey {
   keyError,
   keyCheckConnection,
   keyApiKeyError,
-  keyApiKeyInfo,
   keyLessonPrompt,
   keyMainGoals,
   keyCoreConcepts,
@@ -131,6 +129,7 @@ enum TranslationKey {
   keyFalse,
   keyUploadImage,
   keySelectImage,
+  keyCreateApiKey,
 }
 
 String translateKeyTr(TranslationKey key) {

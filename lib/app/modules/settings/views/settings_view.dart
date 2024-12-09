@@ -1,4 +1,4 @@
-import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:il_env/index.dart';
 import '../controllers/settings_controller.dart';
 
@@ -30,27 +30,20 @@ class SettingsView extends GetView<SettingsController> {
                 labelText: 'API Key', controller: controller.apiKeyController),
             GetBuilder<SettingsController>(
               builder: (controller) {
-                String apikeyLinkToCopy =
+                String apikeyLink =
                     controller.selectedModel.value == ModelType.gemini
                         ? 'https://aistudio.google.com/app/apikey'
                         : 'https://platform.openai.com/api-keys';
-                print(apikeyLinkToCopy);
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(translateKeyTr(TranslationKey.keyApiKeyInfo)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(apikeyLinkToCopy),
-                        IconButton(
-                            onPressed: () {
-                              Clipboard.setData(
-                                  ClipboardData(text: apikeyLinkToCopy));
-                              successSnackbar(TranslationKey.keySuccessCopied);
-                            },
-                            icon: Icon(Icons.copy))
-                      ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () => launchUrl(Uri.parse(apikeyLink)),
+                      icon: Icon(Icons.open_in_new),
+                      label: Text(translateKeyTr(TranslationKey.keyCreateApiKey)),
                     ),
                   ],
                 );
