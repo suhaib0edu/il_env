@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 class HomeController extends GetxController {
   final lessonController = TextEditingController();
   bool isLoading = false;
+  RxBool haveLesson = false.obs;
 
   void toggleLanguage() async {
     if (Get.locale?.languageCode == 'en') {
@@ -26,18 +27,19 @@ class HomeController extends GetxController {
   }
 
   void processImage(XFile? path) async {
-    isLoading = true; 
-    update(); 
+    isLoading = true;
+    update();
     String? text = await extractTextFromImage(path);
     if (text != null) {
       String x = text;
       lessonController.text = x;
+      haveLesson.value = true;
     } else {
       lessonController.text = '0';
     }
 
-    isLoading = false; 
-    update(); 
+    isLoading = false;
+    update();
   }
 
   void pickImage() async {
@@ -46,5 +48,9 @@ class HomeController extends GetxController {
     if (image != null) {
       processImage(image);
     }
+  }
+
+  haveLessonFun(value) {
+    haveLesson.value = value.length > 5;
   }
 }

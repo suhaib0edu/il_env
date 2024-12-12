@@ -99,6 +99,7 @@ class HomeView extends GetView<HomeController> {
         controller: controller.lessonController,
         labelText: translateKeyTr(TranslationKey.keyLessonPrompt),
         maxLength: 3500,
+        onChanged: controller.haveLessonFun,
         // multsuffixIcon: true,
         suffixIcon: GetBuilder<HomeController>(
           builder: (ctr) => controller.isLoading
@@ -116,9 +117,11 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _buildStudyLessonsButton(HomeController controller) {
-    return CustomTextButton(
-      text: translateKeyTr(TranslationKey.keyStudyLessons),
-      onPressed: controller.studyLessons,
+    return Obx(
+      () => CustomTextButton(
+        text: translateKeyTr(TranslationKey.keyStudyLessons),
+        onPressed: controller.haveLesson.value ? controller.studyLessons : null,
+      ),
     );
   }
 }
