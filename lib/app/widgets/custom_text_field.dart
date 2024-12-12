@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool multsuffixIcon;
   final int? maxLength;
+  final int? maxLines;
   final Function(String)? onChanged;
 
   const CustomTextField({
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.multsuffixIcon = false,
     this.maxLength,
+    this.maxLines,
     this.onChanged,
   });
 
@@ -28,7 +30,7 @@ class CustomTextField extends StatelessWidget {
     return TextField(
       controller: controller,
       minLines: 1,
-      maxLines: 8,
+      maxLines: maxLines ?? 8,
       maxLength: maxLength,
       onChanged: onChanged,
       obscureText: obscureText,
