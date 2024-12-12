@@ -1,11 +1,11 @@
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:il_env/index.dart';
 
 class CustomSpinKitWaveSpinner extends StatefulWidget {
   const CustomSpinKitWaveSpinner({
     Key? key,
-    required this.color,
+    this.color = AppColors.primaryColor,
     this.trackColor = const Color(0x68757575),
     this.waveColor = const Color(0x68757575),
     this.size = 50,
