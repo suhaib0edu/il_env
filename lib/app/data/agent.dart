@@ -105,7 +105,7 @@ class Agent {
       String systemInstruction, String userMessage) async {
     try {
       final selectedModelType = await getSelectedModel();
-      final apiKey = getAPI(selectedModelType);
+      final apiKey = await getAPI(selectedModelType);
       if (apiKey.isEmpty || apiKey.length < 5) {
         errorSnackbar(TranslationKey.keyApiKeyError);
         Get.offAllNamed(Routes.HOME);
