@@ -43,7 +43,11 @@ class TranslationsService extends Translations {
           'keyWriteYourAnswerHere': 'Write your answer here',
           'keyRetryExam': 'Retry Exam',
           'keyNewExam': 'New Exam',
-          'keyCreateApiKey': 'Create Your API Key'
+          'keyCreateApiKey': 'Create Your API Key',
+          'keyUpdateRequired': 'Update Required',
+          'keyUpdateAvailable': 'New Update Available',
+          'keyUpdate': 'Update',
+          'keyLater': 'Later',
         },
         'ar_SA': {
           'keyHelpText': 'ماذا سنتعلم اليوم؟',
@@ -86,7 +90,11 @@ class TranslationsService extends Translations {
           'keyWriteYourAnswerHere': 'اكتب إجابتك هنا',
           'keyRetryExam': 'إعادة الاختبار',
           'keyNewExam': 'اختبار جديد',
-          'keyCreateApiKey': 'أنشئ مفتاح API الخاص بك'
+          'keyCreateApiKey': 'أنشئ مفتاح API الخاص بك',
+          'keyUpdateRequired': 'تحديث ضروري',
+          'keyUpdateAvailable': 'متوفر تحديث جديد',
+          'keyUpdate': 'تحديث',
+          'keyLater': 'لاحقا',
         },
       };
 }
@@ -130,6 +138,10 @@ enum TranslationKey {
   keyUploadImage,
   keySelectImage,
   keyCreateApiKey,
+  keyUpdateRequired,
+  keyUpdateAvailable,
+  keyUpdate,
+  keyLater,
 }
 
 String translateKeyTr(TranslationKey key) {
