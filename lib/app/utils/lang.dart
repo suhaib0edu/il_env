@@ -37,7 +37,7 @@ class TranslationsService extends Translations {
           'keyNext': 'Next',
           'keySubmitExam': 'Submit Exam',
           'keyTrue': 'True',
-          'keyFalse': 'False',          
+          'keyFalse': 'False',
           'keyUploadImage': 'Upload Image',
           'keySelectImage': 'Select Image',
           'keyWriteYourAnswerHere': 'Write your answer here',
@@ -58,6 +58,7 @@ class TranslationsService extends Translations {
           'keyInvitationCodeNotFound': 'Invitation code not found',
           'keyYouHaveBeenInvited': 'You have been invited',
           'keyInvitationCodeSuccess': 'Invitation code success',
+          'keySignInWithGoogle': 'Sign in with Google',
         },
         'ar_SA': {
           'keyHelpText': 'ماذا سنتعلم اليوم؟',
@@ -72,7 +73,6 @@ class TranslationsService extends Translations {
               'يرجى التحقق من الاتصال بالإنترنت والمحاولة مرة أخرى.',
           'keyApiKeyError':
               'لم نتمكن من الاتصال بالنموذج. تأكد من إضافة مفتاح API الخاص بك بشكل صحيح أو التبديل لمزود مختلف.',
-
           'keyLessonPrompt': 'ضع الدرس أو المقالة',
           'keyMainGoals': 'الأهداف الرئيسية',
           'keyCoreConcepts': 'المفاهيم الأساسية',
@@ -94,7 +94,7 @@ class TranslationsService extends Translations {
           'keyNext': 'التالي',
           'keySubmitExam': 'تقديم الاختبار',
           'keyTrue': 'صحيح',
-          'keyFalse': 'خطأ',          
+          'keyFalse': 'خطأ',
           'keyUploadImage': 'تحميل صورة',
           'keySelectImage': 'اختر صورة',
           'keyWriteYourAnswerHere': 'اكتب إجابتك هنا',
@@ -111,10 +111,12 @@ class TranslationsService extends Translations {
           'keyUnknownError': 'حدث خطأ غير متوقع',
           'keyFailedToGetUser': 'فشل الحصول على بيانات المستخدم',
           'keyInvitationCodeCannotBeEmpty': 'كود الدعوة لا يمكن أن يكون فارغًا',
-          'keyInvitationCodeCannotBeYours': 'كود الدعوة لا يمكن أن يكون خاصًا بك',
+          'keyInvitationCodeCannotBeYours':
+              'كود الدعوة لا يمكن أن يكون خاصًا بك',
           'keyInvitationCodeNotFound': 'كود الدعوة غير موجود',
           'keyYouHaveBeenInvited': 'لقد تمت دعوتك بالفعل',
           'keyInvitationCodeSuccess': 'تمت إضافة كود الدعوة بنجاح',
+          'keySignInWithGoogle': 'تسجيل الدخول باستخدام جوجل',
         },
       };
 }
@@ -172,6 +174,7 @@ enum TranslationKey {
   keyInvitationCodeNotFound,
   keyYouHaveBeenInvited,
   keyInvitationCodeSuccess,
+  keySignInWithGoogle,
 }
 
 String translateKeyTr(TranslationKey key) {

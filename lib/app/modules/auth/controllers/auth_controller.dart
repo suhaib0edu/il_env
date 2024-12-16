@@ -4,7 +4,6 @@ import 'package:il_env/index.dart';
 import '../../../data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthController extends GetxController {
   final user = UserModel.clearUser().obs;
@@ -12,7 +11,6 @@ class AuthController extends GetxController {
   final isLoggedIn = false.obs;
   final googleSignIn = GoogleSignIn();
   final firestore = FirebaseFirestore.instance;
-  final secureStorage = const FlutterSecureStorage();
 
   Future<void> signInWithGoogle() async {
     try {
@@ -22,26 +20,35 @@ class AuthController extends GetxController {
         return;
       }
       isLoading.value = true;
+
+      print('googleUser : $googleUser');
+      print('googleUser.id : ${googleUser.id}');
+      print('googleUser.email : ${googleUser.email}');
+      print('googleUser.displayName : ${googleUser.displayName}');
+      print('googleUser.photoUrl : ${googleUser.photoUrl}');
       
       final googleAuth = await googleUser.authentication;
-      // if (googleAuth == null) {
-      //   errorSnackbar(TranslationKey.keyGoogleAuthFailed);
-      //   return;
-      // }
+      print('accessToken : ${googleAuth.accessToken}');
+      if (googleAuth == null) {
+        errorSnackbar(TranslationKey.keyGoogleAuthFailed);
+        return;
+      }
       final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+      print('credential : $credential');
       final userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
       if (userCredential.user == null) {
         errorSnackbar(TranslationKey.keyFirebaseSignInFailed);
         return;
       }
+      print('userCredential : $userCredential');
       await _getUserData(userCredential.user!.uid, googleUser);
-      await secureStorage.write(key: 'userId', value: userCredential.user!.uid);
+      await storage.write(key: 'userId', value: userCredential.user!.uid);
       isLoggedIn.value = true;
       isLoading.value = false;
       Get.offAllNamed(Routes.HOME);
-      await secureStorage.write(key: 'isLoggedIn', value: 'true');
+      await storage.write(key: 'isLoggedIn', value: 'true');
     } catch (e) {
       errorSnackbar(TranslationKey.keyUnknownError);
       isLoading.value = false;
@@ -52,16 +59,18 @@ class AuthController extends GetxController {
     try {
       final userDoc =
           await firestore.collection('users').doc(userId).get();
+          print('userDoc : $userDoc');
+      print('userDoc.exists : ${userDoc.exists}');
       if (userDoc.exists) {
         user.value = UserModel.fromJson(userDoc.data()!);
-        await secureStorage.write(key: 'unlimitedAccess', value: user.value.unlimitedAccess.toString()); 
+        await storage.write(key: 'unlimitedAccess', value: user.value.unlimitedAccess.toString()); 
         if (user.value.invitationCount! >= 2) {
           await firestore
               .collection('users')
               .doc(userId)
               .update({'unlimitedAccess': true});
         }
-        await secureStorage.write(key: 'invitationCode', value: user.value.invitationCode!);
+        await storage.write(key: 'invitationCode', value: user.value.invitationCode!);
       } else {
         final newUser = UserModel(
           userId: userId,
@@ -75,8 +84,8 @@ class AuthController extends GetxController {
             .doc(userId)
             .set(newUser.toJson());
         user.value = newUser;
-        await secureStorage.write(key: 'unlimitedAccess', value: 'false');
-        await secureStorage.write(key: 'invitationCode', value: newUser.invitationCode!);
+        await storage.write(key: 'unlimitedAccess', value: 'false');
+        await storage.write(key: 'invitationCode', value: newUser.invitationCode!);
       }
     } catch (e) {
       errorSnackbar(TranslationKey.keyFailedToGetUser);
@@ -87,16 +96,16 @@ class AuthController extends GetxController {
     await googleSignIn.signOut();
     isLoggedIn.value = false;
     user.value = UserModel.clearUser();
-    await secureStorage.delete(key: 'unlimitedAccess');
-    await secureStorage.delete(key: 'invitationCode');
-    await secureStorage.delete(key: 'isLoggedIn');
+    await storage.delete(key: 'unlimitedAccess');
+    await storage.delete(key: 'invitationCode');
+    await storage.delete(key: 'isLoggedIn');
     Get.offAllNamed(Routes.AUTH);
   }
 
   Future<void> tryAutoLogin() async {
-    final isLoggedInValue = await secureStorage.read(key: 'isLoggedIn');
+    final isLoggedInValue = await storage.read(key: 'isLoggedIn');
     if (isLoggedInValue == 'true') {
-      final userId = await secureStorage.read(key: 'userId');
+      final userId = await storage.read(key: 'userId');
       if (userId != null) {
         await _getUserData(userId, googleSignIn.currentUser!);
       } else {
@@ -168,7 +177,7 @@ class AuthController extends GetxController {
             .collection('users')
             .doc(inviteSnapshot.docs.first.id)
             .update({'unlimitedAccess': true});
-        await secureStorage.write(key: 'unlimitedAccess', value: 'true');
+        await storage.write(key: 'unlimitedAccess', value: 'true');
       }
       successSnackbar(TranslationKey.keyInvitationCodeSuccess);
     } catch (e) {
