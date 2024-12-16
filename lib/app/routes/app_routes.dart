@@ -11,6 +11,8 @@ abstract class Routes {
   static const LESSON_KEYS = _Paths.LESSON_KEYS;
   static const STUDY_CENTER = _Paths.STUDY_CENTER;
   static const FLASH_CARDS = _Paths.FLASH_CARDS;
+  static const AUTH = _Paths.AUTH;
+  static const INVITATION = _Paths.INVITATION;
 }
 
 abstract class _Paths {
@@ -23,4 +25,6 @@ abstract class _Paths {
   static const LESSON_KEYS = '/lesson-keys';
   static const STUDY_CENTER = '/study-center';
   static const FLASH_CARDS = '/flash-cards';
+  static const AUTH = '/auth';
+  static const INVITATION = '/invitation';
 }
