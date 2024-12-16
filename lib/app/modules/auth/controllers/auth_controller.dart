@@ -1,179 +1,191 @@
-import 'package:il_env/app/data/models/user_model.dart';
-import 'package:il_env/app/data/repositories/auth_repository.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:il_env/index.dart';
+import '../../../data/models/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uuid/uuid.dart';
 
 class AuthController extends GetxController {
-  final AuthRepository authRepository;
+  final user = UserModel.clearUser().obs;
+  final isLoading = false.obs;
+  final isLoggedIn = false.obs;
+  final googleSignIn = GoogleSignIn();
+  final firestore = FirebaseFirestore.instance;
 
-  AuthController({required this.authRepository});
+  Future<void> signInWithGoogle() async {
+    try {
+      final googleUser = await googleSignIn.signIn();
+      if (googleUser == null) {
+        errorSnackbar(TranslationKey.keyGoogleSignInFailed);
+        return;
+      }
+      isLoading.value = true;
 
-  // متغيرات الحالة
-  var isLoading = false.obs;
-  var isLoggedIn = false.obs;
-  var user = Rxn<UserModel>();
-  var errorMessage = ''.obs;
-  var isRegistering = true.obs;
-
-
-  // TextEditingControllers لحقول الإدخال
-  final emailController = TextEditingController();
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-
-  @override
-  void onInit() {
-    super.onInit();
-    checkLoginStatus();
-  }
-
-  checkLoginStatus() async {
-    isLoggedIn.value = await authRepository.isLoggedIn();
-    if (isLoggedIn.value) {
-      user.value = await authRepository.getCurrentUser();
-      navigateToHome();
+      print('googleUser : $googleUser');
+      print('googleUser.id : ${googleUser.id}');
+      print('googleUser.email : ${googleUser.email}');
+      print('googleUser.displayName : ${googleUser.displayName}');
+      print('googleUser.photoUrl : ${googleUser.photoUrl}');
+      
+      final googleAuth = await googleUser.authentication;
+      print('accessToken : ${googleAuth.accessToken}');
+      if (googleAuth == null) {
+        errorSnackbar(TranslationKey.keyGoogleAuthFailed);
+        return;
+      }
+      final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+      print('credential : $credential');
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      if (userCredential.user == null) {
+        errorSnackbar(TranslationKey.keyFirebaseSignInFailed);
+        return;
+      }
+      print('userCredential : $userCredential');
+      await _getUserData(userCredential.user!.uid, googleUser);
+      await storage.write(key: 'userId', value: userCredential.user!.uid);
+      isLoggedIn.value = true;
+      isLoading.value = false;
+      Get.offAllNamed(Routes.HOME);
+      await storage.write(key: 'isLoggedIn', value: 'true');
+    } catch (e) {
+      errorSnackbar(TranslationKey.keyUnknownError);
+      isLoading.value = false;
     }
   }
 
-  // دالة التسجيل
-  Future<void> register() async {
-    isLoading(true);
-    errorMessage('');
+  Future<void> _getUserData(String userId, GoogleSignInAccount googleAccount) async {
     try {
-      final newUser = await authRepository.register(
-        emailController.text.trim(),
-        usernameController.text.trim(),
-        passwordController.text.trim(),
-      );
-      if (newUser != null && newUser.token != null) {
+      final userDoc =
+          await firestore.collection('users').doc(userId).get();
+          print('userDoc : $userDoc');
+      print('userDoc.exists : ${userDoc.exists}');
+      if (userDoc.exists) {
+        user.value = UserModel.fromJson(userDoc.data()!);
+        await storage.write(key: 'unlimitedAccess', value: user.value.unlimitedAccess.toString()); 
+        if (user.value.invitationCount! >= 2) {
+          await firestore
+              .collection('users')
+              .doc(userId)
+              .update({'unlimitedAccess': true});
+        }
+        await storage.write(key: 'invitationCode', value: user.value.invitationCode!);
+      } else {
+        final newUser = UserModel(
+          userId: userId,
+          invitationCode: const Uuid().v4(),
+          invitedBy: null,
+          invitationCount: 0,
+          unlimitedAccess: false,
+        );
+        await firestore
+            .collection('users')
+            .doc(userId)
+            .set(newUser.toJson());
         user.value = newUser;
-        isLoggedIn.value = true;
-        Get.snackbar(
-          'تم التسجيل بنجاح',
-          'مرحبا بك ${newUser.email}',
-          backgroundColor: Colors.green,
-        );
-        navigateToHome();
+        await storage.write(key: 'unlimitedAccess', value: 'false');
+        await storage.write(key: 'invitationCode', value: newUser.invitationCode!);
       }
     } catch (e) {
-      errorMessage(e.toString());
-      Get.snackbar('فشل التسجيل', e.toString(), backgroundColor: Colors.red);
-    } finally {
-      isLoading(false);
+      errorSnackbar(TranslationKey.keyFailedToGetUser);
     }
   }
 
-  // دالة تسجيل الدخول
-  Future<void> login() async {
-    isLoading(true);
-    errorMessage('');
-    try {
-      final loggedInUser = await authRepository.login(
-        emailController.text.trim(),
-        passwordController.text.trim(),
-      );
-      if (loggedInUser != null && loggedInUser.token != null) {
-        user.value = loggedInUser;
-        isLoggedIn.value = true;
-        Get.snackbar(
-          'تم تسجيل الدخول بنجاح',
-          'مرحبا بعودتك ${emailController.text}',
-          backgroundColor: Colors.green,
-        );
-
-        navigateToHome();
-      }
-    } catch (e) {
-      errorMessage(e.toString());
-      Get.snackbar('فشل تسجيل الدخول', e.toString(),
-          backgroundColor: Colors.red);
-    } finally {
-      isLoading(false);
-    }
-  }
-
-  // دالة تسجيل الخروج
-  Future<void> logout() async {
-    isLoading(true);
-    errorMessage('');
-    try {
-      await authRepository.logout();
-      isLoggedIn.value = false;
-      user.value = null;
-      Get.snackbar('تم تسجيل الخروج بنجاح', '', backgroundColor: Colors.green);
-      navigateToAuth();
-    } catch (e) {
-      errorMessage(e.toString());
-      Get.snackbar('فشل تسجيل الخروج', e.toString(),
-          backgroundColor: Colors.red);
-    } finally {
-      isLoading(false);
-    }
-  }
-
-  // دالة حذف الحساب
-  Future<void> deleteAccount() async {
-    isLoading(true);
-    errorMessage('');
-    try {
-      await authRepository.deleteAccount();
-      isLoggedIn.value = false;
-      user.value = null;
-      Get.snackbar('تم حذف الحساب بنجاح', '', backgroundColor: Colors.green);
-      navigateToAuth();
-    } catch (e) {
-      errorMessage(e.toString());
-      Get.snackbar('فشل حذف الحساب', e.toString(), backgroundColor: Colors.red);
-    } finally {
-      isLoading(false);
-    }
-  }
-
-  // دالة تحديث الملف الشخصي
-  Future<void> updateProfile() async {
-    isLoading(true);
-    errorMessage('');
-    try {
-      final updatedUser = await authRepository.updateProfile(
-        usernameController.text.trim(),
-        firstNameController.text.trim().isEmpty
-            ? null
-            : firstNameController.text.trim(),
-        lastNameController.text.trim().isEmpty
-            ? null
-            : lastNameController.text.trim(),
-      );
-      if (updatedUser != null) {
-        user.value = updatedUser;
-        Get.snackbar('تم تحديث الملف الشخصي بنجاح', '',
-            backgroundColor: Colors.green);
-        navigateToHome();
-      }
-    } catch (e) {
-      errorMessage(e.toString());
-      Get.snackbar('فشل تحديث الملف الشخصي', e.toString(),
-          backgroundColor: Colors.red);
-    } finally {
-      isLoading(false);
-    }
-  }
-
-  void navigateToHome() {
-    Get.offAllNamed(Routes.HOME);
-  }
-
-  void navigateToAuth() {
+  Future<void> signOut() async {
+    await googleSignIn.signOut();
+    isLoggedIn.value = false;
+    user.value = UserModel.clearUser();
+    await storage.delete(key: 'unlimitedAccess');
+    await storage.delete(key: 'invitationCode');
+    await storage.delete(key: 'isLoggedIn');
     Get.offAllNamed(Routes.AUTH);
   }
 
-  @override
-  void onClose() {
-    emailController.dispose();
-    usernameController.dispose();
-    passwordController.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
-    super.onClose();
+  Future<void> tryAutoLogin() async {
+    final isLoggedInValue = await storage.read(key: 'isLoggedIn');
+    if (isLoggedInValue == 'true') {
+      final userId = await storage.read(key: 'userId');
+      if (userId != null) {
+        await _getUserData(userId, googleSignIn.currentUser!);
+      } else {
+        signOut();
+      }
+      isLoggedIn.value = true;
+      Get.offAllNamed(Routes.HOME);
+    } else {
+      Get.offAllNamed(Routes.AUTH);
+    }
+  }
+
+  Future<void> submitInvitationCode(String invitationCode) async {
+    isLoading.value = true;
+    if (invitationCode.isEmpty) {
+      errorSnackbar(TranslationKey.keyInvitationCodeCannotBeEmpty);
+      isLoading.value = false;
+      return;
+    }
+    if (invitationCode == user.value.invitationCode) {
+      errorSnackbar(TranslationKey.keyInvitationCodeCannotBeYours);
+      isLoading.value = false;
+      return;
+    }
+    final inviteSnapshot = await firestore
+        .collection('users')
+        .where('invitationCode', isEqualTo: invitationCode)
+        .get();
+    if (inviteSnapshot.docs.isEmpty) {
+      errorSnackbar(TranslationKey.keyInvitationCodeNotFound);
+      isLoading.value = false;
+      return;
+    }
+    if (inviteSnapshot.docs.first.id == user.value.userId) {
+      errorSnackbar(TranslationKey.keyInvitationCodeCannotBeYours);
+      isLoading.value = false;
+      return;
+    }
+    if (user.value.invitedBy != null) {
+      errorSnackbar(TranslationKey.keyYouHaveBeenInvited);
+      isLoading.value = false;
+      return;
+    }
+    int newInviterCount = 0;
+    try {
+      newInviterCount = await firestore.runTransaction((transaction) async {
+        final invitedUserDoc = await transaction
+            .get(firestore.collection('users').doc(user.value.userId));
+        if (invitedUserDoc.data()?['invitedBy'] != null) {
+          throw translateKeyTr(TranslationKey.keyYouHaveBeenInvited);
+        }
+        transaction.update(
+            firestore.collection('users').doc(user.value.userId),
+            {'invitedBy': invitationCode});
+        final inviterUserDoc = await transaction
+            .get(firestore.collection('users').doc(inviteSnapshot.docs.first.id));
+        transaction.update(
+            firestore.collection('users').doc(inviteSnapshot.docs.first.id),
+            {
+              'invitationCount':
+                  (inviterUserDoc.data()?['invitationCount'] ?? 0) + 1
+            });
+        return (inviterUserDoc.data()?['invitationCount'] ?? 0) + 1;
+      });
+      user.value.invitedBy = invitationCode;
+      await _getUserData(user.value.userId!, googleSignIn.currentUser!);
+      if (newInviterCount >= 2) {
+        await firestore
+            .collection('users')
+            .doc(inviteSnapshot.docs.first.id)
+            .update({'unlimitedAccess': true});
+        await storage.write(key: 'unlimitedAccess', value: 'true');
+      }
+      successSnackbar(TranslationKey.keyInvitationCodeSuccess);
+    } catch (e) {
+      errorSnackbar(e.toString() == translateKeyTr(TranslationKey.keyYouHaveBeenInvited)
+              ? TranslationKey.keyYouHaveBeenInvited
+              : TranslationKey.keyUnknownError);
+    } finally {
+      isLoading.value = false;
+    }
   }
 }
