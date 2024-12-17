@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 
-import '../modules/auth/bindings/auth_binding.dart';
-import '../modules/auth/views/auth_view.dart';
 import '../modules/discussion/bindings/discussion_binding.dart';
 import '../modules/discussion/views/discussion_view.dart';
 import '../modules/evaluations/bindings/evaluations_binding.dart';
@@ -66,11 +64,6 @@ class AppPages {
       name: _Paths.FLASH_CARDS,
       page: () => const FlashCardsView(),
       binding: FlashCardsBinding(),
-    ),
-    GetPage(
-      name: _Paths.AUTH,
-      page: () => const AuthView(),
-      binding: AuthBinding(),
     ),
   ];
 }
