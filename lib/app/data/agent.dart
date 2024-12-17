@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:il_env/app/modules/exam/controllers/exam_controller.dart';
 import 'package:il_env/index.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 
 enum ModelType { gemini, gpt }
 
@@ -424,5 +427,39 @@ class AgentUtils {
     }
 
     return markdown.toString();
+  }
+}
+
+
+
+Future<String?> extractTextFromImage(XFile? imageFile) async {
+  try {
+    if (imageFile == null) {
+      return null;
+    }
+
+    final imageBytes = await imageFile.readAsBytes();
+
+    final mimeType = lookupMimeType(imageFile.path) ?? 'image/jpeg';
+
+    final apiKey = await Agent().getAPI(ModelType.gemini);
+    if (apiKey == null) {
+          debugPrint('خطاء في extractTextFromImage() : apiKey');
+
+      return null;
+    }
+
+    final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: apiKey);
+
+    final content = Content.multi([
+      TextPart('استخرج النص من هذه الصورة.'),
+      DataPart(mimeType, imageBytes),
+    ]);
+
+    final response = await model.generateContent([content]);
+    return response.text;
+  } catch (e) {
+    debugPrint('خطاء في extractTextFromImage(): $e');
+    return null;
   }
 }
