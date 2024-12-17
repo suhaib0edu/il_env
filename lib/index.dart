@@ -4,6 +4,7 @@ export 'package:flutter/material.dart';
 export 'package:get/get.dart';
 export 'firebase_options.dart';
 export 'package:firebase_core/firebase_core.dart';
+export 'package:il_env/app/data/supabase/supabase.dart';
 export 'package:il_env/app/data/agent.dart';
 export 'package:il_env/app/utils/app_theme.dart';
 export 'package:il_env/app/utils/lang.dart';
