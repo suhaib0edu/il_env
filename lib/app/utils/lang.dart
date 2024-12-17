@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:il_env/index.dart';
 
 class TranslationsService extends Translations {
   @override
@@ -37,13 +37,27 @@ class TranslationsService extends Translations {
           'keyNext': 'Next',
           'keySubmitExam': 'Submit Exam',
           'keyTrue': 'True',
-          'keyFalse': 'False',          
+          'keyFalse': 'False',
           'keyUploadImage': 'Upload Image',
           'keySelectImage': 'Select Image',
           'keyWriteYourAnswerHere': 'Write your answer here',
           'keyRetryExam': 'Retry Exam',
           'keyNewExam': 'New Exam',
-          'keyCreateApiKey': 'Create Your API Key'
+          'keyCreateApiKey': 'Create Your API Key',
+          'keyInvalidCredentials': 'Invalid login credentials',
+          'keyUserAlreadyRegistered': 'User already registered',
+          'keyWeakPassword': 'Password should be at least 6 characters',
+          'keyEmailNotConfirmed': 'Email not confirmed',
+          'keyAuthError': 'Authentication Error',
+          'keyUnexpectedError': 'An unexpected error occurred',
+          'keyEmail': 'Email',
+          'keyEnterYourEmail': 'Enter your email',
+          'keyPassword': 'Password',
+          'keyEnterYourPassword': 'Enter your password',
+          'keySignUp': 'Sign Up',
+          'keySignIn': 'Sign In',
+          'keyAlreadyHaveAccount': 'Already have an account? Sign In',
+          'keyDontHaveAccount': 'Don\'t have an account? Sign Up',
         },
         'ar_SA': {
           'keyHelpText': 'ماذا سنتعلم اليوم؟',
@@ -58,7 +72,6 @@ class TranslationsService extends Translations {
               'يرجى التحقق من الاتصال بالإنترنت والمحاولة مرة أخرى.',
           'keyApiKeyError':
               'لم نتمكن من الاتصال بالنموذج. تأكد من إضافة مفتاح API الخاص بك بشكل صحيح أو التبديل لمزود مختلف.',
-
           'keyLessonPrompt': 'ضع الدرس أو المقالة',
           'keyMainGoals': 'الأهداف الرئيسية',
           'keyCoreConcepts': 'المفاهيم الأساسية',
@@ -80,13 +93,28 @@ class TranslationsService extends Translations {
           'keyNext': 'التالي',
           'keySubmitExam': 'تقديم الاختبار',
           'keyTrue': 'صحيح',
-          'keyFalse': 'خطأ',          
+          'keyFalse': 'خطأ',
           'keyUploadImage': 'تحميل صورة',
           'keySelectImage': 'اختر صورة',
           'keyWriteYourAnswerHere': 'اكتب إجابتك هنا',
           'keyRetryExam': 'إعادة الاختبار',
           'keyNewExam': 'اختبار جديد',
-          'keyCreateApiKey': 'أنشئ مفتاح API الخاص بك'
+          'keyCreateApiKey': 'أنشئ مفتاح API الخاص بك',
+          'keyInvalidCredentials': 'اسم المستخدم أو كلمة المرور غير صحيحة',
+          'keyUserAlreadyRegistered': 'هذا المستخدم مسجل بالفعل',
+          'keyWeakPassword': 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل',
+          'keyEmailNotConfirmed':
+              'البريد الإلكتروني لم يتم تأكيده، يرجى التحقق من بريدك الوارد',
+          'keyAuthError': 'خطأ في المصادقة',
+          'keyUnexpectedError': 'حدث خطأ غير متوقع',
+          'keyEmail': 'البريد الإلكتروني',
+          'keyEnterYourEmail': 'أدخل بريدك الإلكتروني',
+          'keyPassword': 'كلمة المرور',
+          'keyEnterYourPassword': 'أدخل كلمة المرور',
+          'keySignUp': 'إنشاء حساب',
+          'keySignIn': 'تسجيل الدخول',
+          'keyAlreadyHaveAccount': 'هل لديك حساب بالفعل؟ تسجيل الدخول',
+          'keyDontHaveAccount': 'ليس لديك حساب؟ إنشاء حساب',
         },
       };
 }
@@ -130,8 +158,32 @@ enum TranslationKey {
   keyUploadImage,
   keySelectImage,
   keyCreateApiKey,
+  keyInvalidCredentials,
+  keyUserAlreadyRegistered,
+  keyWeakPassword,
+  keyEmailNotConfirmed,
+  keyAuthError,
+  keyUnexpectedError,
+  keyEmail,
+  keyEnterYourEmail,
+  keyPassword,
+  keyEnterYourPassword,
+  keySignUp,
+  keySignIn,
+  keyAlreadyHaveAccount,
+  keyDontHaveAccount,
 }
 
 String translateKeyTr(TranslationKey key) {
   return key.name.tr;
+}
+
+void toggleLanguageFun() async {
+  if (Get.locale?.languageCode == 'en') {
+    await storage.write(key: 'language', value: 'ar');
+    Get.updateLocale(Locale('ar', 'SA'));
+  } else {
+    await storage.write(key: 'language', value: 'en');
+    Get.updateLocale(Locale('en', 'US'));
+  }
 }
