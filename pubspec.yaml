@@ -20,7 +20,8 @@ dependencies:
   path_provider: ^2.0.11
   url_launcher: ^6.3.1
   google_generative_ai: ^0.4.6
-  mime: ^2.0.0
+  supabase_flutter: ^2.8.1
+  mime: ^1.0.6
 
 dev_dependencies:
   flutter_test:
@@ -29,3 +30,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
