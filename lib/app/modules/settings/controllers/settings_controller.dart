@@ -37,11 +37,12 @@ class SettingsController extends GetxController {
     update();
   }
 
-  void saveSettings() {
+  void saveApiKey() {
     storage.write(key: 'selectedModel', value: selectedModel.value.name);
     storage.write(key: selectedModel.value.name, value: apiKeyController.text);
 
     successSnackbar(TranslationKey.keySettingsSavedSuccessfully);
     Get.toNamed(Routes.HOME);
   }
+  
 }

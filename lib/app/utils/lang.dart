@@ -7,7 +7,7 @@ class TranslationsService extends Translations {
           'keyHelpText': 'What will we learn today?',
           'keyQuestionHint': 'Do you have a question regarding this section?',
           'keyStudyLessons': 'Start Studying',
-          'keyUpdateSettings': 'Update Settings',
+          'keyUpdate': 'Update',
           'keySettings': 'Settings',
           'keySuccess': 'Success',
           'keySettingsSavedSuccessfully': 'Settings saved successfully',
@@ -43,7 +43,7 @@ class TranslationsService extends Translations {
           'keyWriteYourAnswerHere': 'Write your answer here',
           'keyRetryExam': 'Retry Exam',
           'keyNewExam': 'New Exam',
-          'keyCreateApiKey': 'Create Your API Key',
+          'keyCreateApiKey': 'Create New API Key',
           'keyInvalidCredentials': 'Invalid login credentials',
           'keyUserAlreadyRegistered': 'User already registered',
           'keyWeakPassword': 'Password should be at least 6 characters',
@@ -58,12 +58,13 @@ class TranslationsService extends Translations {
           'keySignIn': 'Sign In',
           'keyAlreadyHaveAccount': 'Already have an account? Sign In',
           'keyDontHaveAccount': 'Don\'t have an account? Sign Up',
+          'keyInviteFriend': 'Invite a Friend', // added invite a friend
         },
         'ar_SA': {
           'keyHelpText': 'ماذا سنتعلم اليوم؟',
           'keyQuestionHint': 'هل لديك سؤال في هذه الجزئية؟',
           'keyStudyLessons': 'إبدأ المذاكرة',
-          'keyUpdateSettings': 'تحديث الإعدادات',
+          'keyUpdate': 'تحديث',
           'keySettings': 'الإعدادات',
           'keySuccess': 'نجاح',
           'keySettingsSavedSuccessfully': 'تم حفظ الإعدادات بنجاح',
@@ -99,7 +100,7 @@ class TranslationsService extends Translations {
           'keyWriteYourAnswerHere': 'اكتب إجابتك هنا',
           'keyRetryExam': 'إعادة الاختبار',
           'keyNewExam': 'اختبار جديد',
-          'keyCreateApiKey': 'أنشئ مفتاح API الخاص بك',
+          'keyCreateApiKey': 'أنشئ مفتاح API جديد',
           'keyInvalidCredentials': 'اسم المستخدم أو كلمة المرور غير صحيحة',
           'keyUserAlreadyRegistered': 'هذا المستخدم مسجل بالفعل',
           'keyWeakPassword': 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل',
@@ -115,6 +116,7 @@ class TranslationsService extends Translations {
           'keySignIn': 'تسجيل الدخول',
           'keyAlreadyHaveAccount': 'هل لديك حساب بالفعل؟ تسجيل الدخول',
           'keyDontHaveAccount': 'ليس لديك حساب؟ إنشاء حساب',
+          'keyInviteFriend': 'دعوة صديق', // added invite a friend
         },
       };
 }
@@ -123,7 +125,7 @@ enum TranslationKey {
   keyHelpText,
   keyQuestionHint,
   keyStudyLessons,
-  keyUpdateSettings,
+  keyUpdate,
   keySettings,
   keySuccess,
   keySettingsSavedSuccessfully,
@@ -172,6 +174,7 @@ enum TranslationKey {
   keySignIn,
   keyAlreadyHaveAccount,
   keyDontHaveAccount,
+  keyInviteFriend, // added invite a friend key
 }
 
 String translateKeyTr(TranslationKey key) {
