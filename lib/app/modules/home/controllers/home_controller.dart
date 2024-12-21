@@ -1,4 +1,3 @@
-import 'package:il_env/app/data/api_service.dart';
 import 'package:il_env/index.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -7,15 +6,7 @@ class HomeController extends GetxController {
   bool isLoading = false;
   RxBool haveLesson = false.obs;
 
-  void toggleLanguage() async {
-    if (Get.locale?.languageCode == 'en') {
-      await storage.write(key: 'language', value: 'ar');
-      Get.updateLocale(Locale('ar', 'SA'));
-    } else {
-      await storage.write(key: 'language', value: 'en');
-      Get.updateLocale(Locale('en', 'US'));
-    }
-  }
+  void toggleLanguage() => toggleLanguageFun();
 
   studyLessons() async {
     if (lessonController.text.isNotEmpty) {

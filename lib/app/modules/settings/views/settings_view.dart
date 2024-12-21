@@ -1,4 +1,4 @@
-import 'package:url_launcher/url_launcher.dart';
+import 'package:il_env/app/widgets/api_key_dialog.dart';
 import 'package:il_env/index.dart';
 import '../controllers/settings_controller.dart';
 
@@ -17,65 +17,55 @@ class SettingsView extends GetView<SettingsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GetBuilder<SettingsController>(
-              builder: (controller) => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: ModelType.values
-                    .map((type) => _buildRadioOption(controller, type))
-                    .toList(),
-              ),
-            ),
-            SizedBox(height: 16.0),
-            CustomTextField(
-                labelText: 'API Key', controller: controller.apiKeyController),
-            GetBuilder<SettingsController>(
-              builder: (controller) {
-                String apikeyLink =
-                    controller.selectedModel.value == ModelType.gemini
-                        ? 'https://aistudio.google.com/app/apikey'
-                        : 'https://platform.openai.com/api-keys';
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: () => launchUrl(Uri.parse(apikeyLink)),
-                      icon: Icon(Icons.open_in_new),
-                      label: Text(translateKeyTr(TranslationKey.keyCreateApiKey)),
-                    ),
-                  ],
-                );
-              },
+            // _buildListTile(
+            //   Icons.mail_outline,
+            //   translateKeyTr(TranslationKey.keyInviteFriend),
+            //   ()=> Get.toNamed(Routes.INVITATIONS),
+            // ),
+            _buildListTile(
+              Icons.vpn_key_rounded,
+              translateKeyTr(TranslationKey.keyCreateApiKey),
+              () => _showApiKeyDialog(),
             ),
             Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(40),
-              child: Center(
-                child: CustomTextButton(
-                    text: translateKeyTr(
-                      TranslationKey.keyUpdateSettings,
-                    ),
-                    onPressed: controller.saveSettings),
-              ),
-            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildRadioOption(SettingsController controller, ModelType type) {
-    return Row(
-      children: [
-        Text(type == ModelType.gemini ? 'Gemini' : 'GPT'),
-        Radio<ModelType>(
-          value: type,
-          groupValue: controller.selectedModel.value,
-          onChanged: controller.updateSelectedModel,
+  void _showApiKeyDialog() {
+    Get.dialog(ApiKeyDialogWidget());
+  }
+
+  // Widget _buildRadioOption(SettingsController controller, ModelType type) {
+  //   return Row(
+  //     children: [
+  //       Text(type == ModelType.gemini ? 'Gemini' : 'GPT'),
+  //       Radio<ModelType>(
+  //         value: type,
+  //         groupValue: controller.selectedModel.value,
+  //         onChanged: controller.updateSelectedModel,
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  Widget _buildListTile(leading, title, onTap) {
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: ListTile(
+        iconColor: AppColors.primaryColor,
+        textColor: AppColors.primaryColor,
+        leading: Icon(leading),
+        title: Text(title),
+        trailing: Icon(Icons.arrow_right_rounded),
+        onTap: onTap,
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: AppColors.primaryColor),
+          borderRadius: BorderRadius.circular(8),
         ),
-      ],
+      ),
     );
   }
 }
