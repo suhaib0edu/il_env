@@ -1,4 +1,4 @@
-import 'package:url_launcher/url_launcher.dart';
+import 'package:il_env/app/widgets/api_key_dialog.dart';
 import 'package:il_env/index.dart';
 import '../controllers/settings_controller.dart';
 
@@ -17,15 +17,15 @@ class SettingsView extends GetView<SettingsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildListTile(
-              Icons.mail_outline,
-              translateKeyTr(TranslationKey.keyInviteFriend),
-              () {},
-            ),
+            // _buildListTile(
+            //   Icons.mail_outline,
+            //   translateKeyTr(TranslationKey.keyInviteFriend),
+            //   ()=> Get.toNamed(Routes.INVITATIONS),
+            // ),
             _buildListTile(
               Icons.vpn_key_rounded,
               translateKeyTr(TranslationKey.keyCreateApiKey),
-              () => _showApiKeyDialog(context),
+              () => _showApiKeyDialog(),
             ),
             Spacer(),
           ],
@@ -34,61 +34,9 @@ class SettingsView extends GetView<SettingsController> {
     );
   }
 
-  void _showApiKeyDialog(BuildContext context) {
-    Get.dialog(
-      AlertDialog(
-        title: Text(translateKeyTr(TranslationKey.keyCreateApiKey)),
-        content: SizedBox(
-           width: Get.width, // اجعل العرض يملأ الشاشة
-           height: Get.height,
-           child: GetBuilder<SettingsController>(
-            builder: (controller) {
-            String apikeyLink = controller.selectedModel.value == ModelType.gemini
-                ? 'https://aistudio.google.com/app/apikey'
-                : 'https://platform.openai.com/api-keys';
-            return Column(
-              mainAxisSize: MainAxisSize.min, // استخدم min لحساب الارتفاع تلقائيا
-              children: [
-                // GetBuilder<SettingsController>(
-                //   builder: (controller) => Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //     children: ModelType.values
-                //         .map((type) => _buildRadioOption(controller, type))
-                //         .toList(),
-                //   ),
-                // ),
-                CustomTextField(
-                    labelText: 'API Key',
-                    controller: controller.apiKeyController),
-                SizedBox(height: 16.0),
-                TextButton(
-                  onPressed: () => launchUrl(Uri.parse(apikeyLink)),
-                  
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.open_in_new),
-                      SizedBox(width: 4.0),
-                      Text(translateKeyTr(TranslationKey.keyCreateApiKey)),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          }),
-        ),
-        actions: <Widget>[
-           ElevatedButton.icon(
-            label: Text(translateKeyTr(
-                TranslationKey.keyUpdate,
-              )),
-            onPressed: controller.saveApiKey,
-          ),
-        ],
-      ),
-    );
+  void _showApiKeyDialog() {
+    Get.dialog(ApiKeyDialogWidget());
   }
-
 
   // Widget _buildRadioOption(SettingsController controller, ModelType type) {
   //   return Row(
