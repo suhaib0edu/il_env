@@ -1,3 +1,4 @@
+import 'package:il_env/app/widgets/logo.dart';
 import 'package:il_env/index.dart';
 import '../controllers/home_controller.dart';
 
@@ -84,13 +85,9 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget _buildLogoApp() {
-    return CustomContainer(
-      height: 90,
-      width: 90,
-      color: AppColors.tertiaryColor,
-    );
-  }
+Widget _buildLogoApp() {
+  return Logo();
+}
 
   Widget _buildQuestionTextField() {
     return Padding(

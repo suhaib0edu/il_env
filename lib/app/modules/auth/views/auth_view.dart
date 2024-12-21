@@ -1,3 +1,4 @@
+import 'package:il_env/app/widgets/logo.dart';
 import 'package:il_env/index.dart';
 import '../controllers/auth_controller.dart';
 
@@ -21,9 +22,7 @@ class AuthView extends GetView<AuthController> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const Spacer(),
-                      const FlutterLogo(
-                        size: 80,
-                      ),
+                      const Logo(),
                       const SizedBox(height: 30),
                       // حقل البريد الإلكتروني
                       TextFormField(
