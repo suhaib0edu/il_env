@@ -19,13 +19,11 @@ class AuthController extends GetxController {
 
   Future<void> _checkAuthSessionAndLang() async {
     await storage.read(key: 'language').then((value) {
-      if (value != null) {
-        if (value == 'en') {
-          isEN.value = true;
-        } else {
+        if (value == 'ar') {
           isEN.value = false;
+        } else {
+          isEN.value = true;
         }
-      }
     });
     final session = supabase.auth.currentSession;
     if (session != null) {
@@ -104,7 +102,6 @@ class AuthController extends GetxController {
 
   void toggleLanguage() {
     isEN.toggle();
-    print('isEN: ${isEN.value}');
     toggleLanguageFun();
   }
 
