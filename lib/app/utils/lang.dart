@@ -58,7 +58,15 @@ class TranslationsService extends Translations {
           'keySignIn': 'Sign In',
           'keyAlreadyHaveAccount': 'Already have an account? Sign In',
           'keyDontHaveAccount': 'Don\'t have an account? Sign Up',
-          'keyInviteFriend': 'Invite a Friend', // added invite a friend
+          'keyInviteFriend': 'Invite a Friend',
+           'keyAddAppToHomeScreen': 'Add Smart Learning Environment to your home screen!',
+           'keyFasterAccessBetterExperience': 'Faster access, better study experience.',
+           'keyInstantAccess': 'Instant Access: Open the app with just one tap.',
+           'keyBetterOrganization': 'Better Organization: Keep all your study resources in one place and stored locally.',
+            'keySaveData': 'Reduce internet usage and save data.',
+            'keySmoothExperience': 'Smooth and enhanced user experience.',
+            'keyInstallNow': 'Install App',
+            'keyRemindLater': 'Remind me Later',
         },
         'ar_SA': {
           'keyHelpText': 'ماذا سنتعلم اليوم؟',
@@ -116,7 +124,15 @@ class TranslationsService extends Translations {
           'keySignIn': 'تسجيل الدخول',
           'keyAlreadyHaveAccount': 'هل لديك حساب بالفعل؟ تسجيل الدخول',
           'keyDontHaveAccount': 'ليس لديك حساب؟ إنشاء حساب',
-          'keyInviteFriend': 'دعوة صديق', // added invite a friend
+          'keyInviteFriend': 'دعوة صديق',
+          'keyAddAppToHomeScreen': 'أضف بيئة التعليم الذكية كتطبيق إلى شاشتك الرئيسية!',
+           'keyFasterAccessBetterExperience': 'وصول أسرع، تجربة أفضل للدراسة.',
+           'keyInstantAccess': 'وصول فوري: سيمكنك من فتح التطبيق بنقرة واحدة فقط.',
+           'keyBetterOrganization': 'تنظيم أفضل: حافظ على جميع مواردك الدراسية في مكان واحد ومخزنة محليا.',
+            'keySaveData': 'تقليل استهلاك الانترنت و توفير البيانات',
+            'keySmoothExperience': 'تجربة استخدام سلسة ومحسّنة.',
+            'keyInstallNow': 'بتثبيت التطبيق',
+           'keyRemindLater': 'تذكير لاحقًا',
         },
       };
 }
@@ -174,7 +190,15 @@ enum TranslationKey {
   keySignIn,
   keyAlreadyHaveAccount,
   keyDontHaveAccount,
-  keyInviteFriend, // added invite a friend key
+  keyInviteFriend, 
+  keyAddAppToHomeScreen,
+  keyFasterAccessBetterExperience,
+  keyInstantAccess,
+  keyBetterOrganization,
+  keySaveData,
+  keySmoothExperience,
+  keyInstallNow,
+  keyRemindLater,
 }
 
 String translateKeyTr(TranslationKey key) {

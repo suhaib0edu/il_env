@@ -1,5 +1,6 @@
 import 'package:il_env/index.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:pwa_install/pwa_install.dart'; // استيراد المكتبة
 
 class AuthController extends GetxController {
   final emailController = TextEditingController();
@@ -11,19 +12,42 @@ class AuthController extends GetxController {
   final showPassword = false.obs;
   final isEN = false.obs;
 
+  final isInstallPromptEnabled = false.obs;
+  final isInstalled = false.obs; // لتتبع حالة التثبيت
+
   @override
   void onInit() async {
     super.onInit();
     _checkAuthSessionAndLang();
+    initPWAInstall();
+  }
+
+  void initPWAInstall() {
+    PWAInstall().setup(installCallback: () {
+      print('تم تثبيت التطبيق عبر PWAInstall');
+      isInstalled.value = true;
+      Get.snackbar('تم التثبيت!', 'تم تثبيت التطبيق بنجاح على شاشتك الرئيسية.');
+    });
+    PWAInstall().getLaunchMode_();
+    isInstallPromptEnabled.value = PWAInstall().installPromptEnabled;
+  }
+
+  void installPWA() {
+    try {
+      PWAInstall().promptInstall_();
+    } catch (e) {
+      print('خطأ في عرض مطالبة التثبيت: $e');
+      Get.snackbar('خطأ', 'هذا المتصفح لا يدعم التثبيت كتطبيق.');
+    }
   }
 
   Future<void> _checkAuthSessionAndLang() async {
     await storage.read(key: 'language').then((value) {
-        if (value == 'ar') {
-          isEN.value = false;
-        } else {
-          isEN.value = true;
-        }
+      if (value == 'en') {
+        isEN.value = true;
+      } else {
+        isEN.value = false;
+      }
     });
     final session = supabase.auth.currentSession;
     if (session != null) {
