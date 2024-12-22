@@ -23,14 +23,15 @@ class AuthView extends GetView<AuthController> {
                     children: [
                       const Spacer(),
                       const Logo(),
-                      const SizedBox(height: 30),
+                      const Spacer(),
                       // حقل البريد الإلكتروني
                       TextFormField(
                         controller: controller.emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: translateKeyTr(TranslationKey.keyEmail),
-                          hintText: translateKeyTr(TranslationKey.keyEnterYourEmail),
+                          hintText:
+                              translateKeyTr(TranslationKey.keyEnterYourEmail),
                           prefixIcon: myIcon(Icons.email),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -45,8 +46,10 @@ class AuthView extends GetView<AuthController> {
                           controller: controller.passwordController,
                           obscureText: !controller.showPassword.value,
                           decoration: InputDecoration(
-                            labelText: translateKeyTr(TranslationKey.keyPassword),
-                            hintText: translateKeyTr(TranslationKey.keyEnterYourPassword),
+                            labelText:
+                                translateKeyTr(TranslationKey.keyPassword),
+                            hintText: translateKeyTr(
+                                TranslationKey.keyEnterYourPassword),
                             prefixIcon: myIcon(Icons.lock),
                             suffixIcon: IconButton(
                               icon: Icon(controller.showPassword.value
@@ -74,14 +77,23 @@ class AuthView extends GetView<AuthController> {
                                 ),
                               ),
                             )
-                          : CustomTextButton(
+                          : ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    AppColors.primaryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
                               onPressed: controller.isLoading.value
                                   ? null
                                   : () => controller.authAction(),
-                              text: controller.isSignUp.value
-                                  ? translateKeyTr(TranslationKey.keySignUp)
-                                  : translateKeyTr(TranslationKey.keySignIn),
-                            ),
+                              child: Text(
+                                controller.isSignUp.value
+                                    ? translateKeyTr(TranslationKey.keySignUp)
+                                    : translateKeyTr(TranslationKey.keySignIn),
+                                style: const TextStyle(color: Colors.white),
+                              )),
                       const SizedBox(height: 20),
                       // زر التبديل بين تسجيل الدخول/الاشتراك
                       Center(
@@ -90,8 +102,10 @@ class AuthView extends GetView<AuthController> {
                               !controller.isSignUp.value,
                           child: Text(
                             controller.isSignUp.value
-                                ? translateKeyTr(TranslationKey.keyAlreadyHaveAccount)
-                                : translateKeyTr(TranslationKey.keyDontHaveAccount),
+                                ? translateKeyTr(
+                                    TranslationKey.keyAlreadyHaveAccount)
+                                : translateKeyTr(
+                                    TranslationKey.keyDontHaveAccount),
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),
@@ -129,19 +143,19 @@ class AuthView extends GetView<AuthController> {
   Widget myIcon(IconData icon) {
     return Icon(
       icon,
-      color: AppColors.primaryColor.withOpacity(0.5),
+      color: AppColors.primaryColor,
     );
   }
 
   Widget _buildLanguageButton() {
     return Obx(() => Center(
-      child: TextButton(
+          child: TextButton(
             onPressed: () => controller.toggleLanguage(),
             child: Text(
               controller.isEN.value ? 'عربي' : 'english',
               style: const TextStyle(fontSize: 16),
             ),
           ),
-    ));
+        ));
   }
 }
