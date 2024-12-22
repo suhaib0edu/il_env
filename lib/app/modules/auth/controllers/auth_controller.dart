@@ -1,5 +1,6 @@
 import 'package:il_env/index.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'dart:html';
 
 class AuthController extends GetxController {
   final emailController = TextEditingController();
@@ -11,19 +12,58 @@ class AuthController extends GetxController {
   final showPassword = false.obs;
   final isEN = false.obs;
 
+  BeforeInstallPromptEvent? _installPromptEvent;
+  final RxBool _showInstallPrompt = false.obs;
+  bool get showInstallPrompt => _showInstallPrompt.value;
+
   @override
   void onInit() async {
     super.onInit();
+    _listenForInstallPrompt();
+    // _showInstallPrompt.value = true; // اعرض الزر دائمًا مؤقتًا
     _checkAuthSessionAndLang();
   }
 
+
+
+  void _listenForInstallPrompt() {
+    print('0');
+    window.addEventListener('beforeinstallprompt', (e) {
+      print('1 - beforeinstallprompt event fired');
+      e.preventDefault();
+      _installPromptEvent = e as BeforeInstallPromptEvent;
+      _showInstallPrompt.value = true;
+      update();
+    });
+  }
+
+  void installPWA() async {
+    print('2');
+    if (_installPromptEvent != null) {
+      _installPromptEvent!.prompt();
+      final Map<String, dynamic>? choiceResult = await _installPromptEvent!.userChoice;
+      if (choiceResult != null && choiceResult['outcome'] == 'accepted') {
+        print('تم تثبيت التطبيق بنجاح');
+        _showInstallPrompt.value = false;
+        update();
+      } else {
+        print('تم رفض تثبيت التطبيق أو حدث خطأ');
+      }
+      _installPromptEvent = null;
+    } else {
+      print('Error: _installPromptEvent is null. The beforeinstallprompt event might not have fired.');
+    }
+    print('000');
+  }
+
+
   Future<void> _checkAuthSessionAndLang() async {
     await storage.read(key: 'language').then((value) {
-        if (value == 'ar') {
-          isEN.value = false;
-        } else {
-          isEN.value = true;
-        }
+      if (value == 'ar') {
+        isEN.value = false;
+      } else {
+        isEN.value = true;
+      }
     });
     final session = supabase.auth.currentSession;
     if (session != null) {
