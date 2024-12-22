@@ -5,13 +5,23 @@ class Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomContainer( 
-    height: 90,
-    width: 90,
-    child: Image.asset(
-      'assets/icons/logo.webp',
-      fit: BoxFit.contain, 
-    ),
-  );
+    return Center(
+      child: CustomContainer(
+        radius: 30,
+        padding: EdgeInsets.all(6),
+        child: Container(
+          height: 90,
+          width: 90,
+          decoration: BoxDecoration(
+            color: AppColors.secondaryColor,
+            borderRadius: BorderRadius.circular(25),
+            image: DecorationImage(
+              image: AssetImage('assets/icons/logo.webp'),
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
