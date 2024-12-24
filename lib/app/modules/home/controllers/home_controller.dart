@@ -1,10 +1,41 @@
 import 'package:il_env/index.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pwa_install/pwa_install.dart';
 
 class HomeController extends GetxController {
   final lessonController = TextEditingController();
   bool isLoading = false;
   RxBool haveLesson = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    initPWAInstall();
+  }
+
+  void initPWAInstall() {
+    PWAInstall().setup(installCallback: () {
+      Get.snackbar(
+        translateKeyTr(TranslationKey.keyInstalling),
+        translateKeyTr(TranslationKey.keyCheckNotificationProgress),
+      );
+    });
+    PWAInstall().getLaunchMode_();
+    if (PWAInstall().installPromptEnabled) {
+      installPWA();
+    }
+  }
+
+  void installPWA() {
+    try {
+      PWAInstall().promptInstall_();
+    } catch (e) {
+      Get.snackbar(
+        translateKeyTr(TranslationKey.keyError),
+        translateKeyTr(TranslationKey.keyInstallNotSupported),
+      );
+    }
+  }
 
   void toggleLanguage() => toggleLanguageFun();
 
