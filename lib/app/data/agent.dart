@@ -430,8 +430,6 @@ class AgentUtils {
   }
 }
 
-
-
 Future<String?> extractTextFromImage(XFile? imageFile) async {
   try {
     if (imageFile == null) {
@@ -444,15 +442,19 @@ Future<String?> extractTextFromImage(XFile? imageFile) async {
 
     final apiKey = await Agent().getAPI(ModelType.gemini);
     if (apiKey == null) {
-          debugPrint('خطاء في extractTextFromImage() : apiKey');
+      debugPrint('خطاء في extractTextFromImage() : apiKey');
 
       return null;
     }
 
-    final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: apiKey);
+    final model = GenerativeModel(
+      model: 'gemini-1.5-flash',
+      apiKey: apiKey,
+      systemInstruction: Content.system('استخرج النص من الصورة. أعد النص فقط بدون ردود اضافية من عندك'),
+    );
 
     final content = Content.multi([
-      TextPart('استخرج النص من هذه الصورة.'),
+      TextPart(''),
       DataPart(mimeType, imageBytes),
     ]);
 
