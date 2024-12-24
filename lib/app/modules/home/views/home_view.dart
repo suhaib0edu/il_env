@@ -105,7 +105,7 @@ Widget _buildLogoApp() {
                   size: 30,
                 )
               : IconButton(
-                  icon: const Icon(Icons.image, color: AppColors.primaryColor),
+                  icon: const Icon(Icons.camera_alt_rounded, color: AppColors.primaryColor),
                   onPressed: controller.pickImage,
                 ),
         ),

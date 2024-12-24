@@ -84,7 +84,7 @@ class TranslationsService extends Translations {
               'يرجى التحقق من الاتصال بالإنترنت والمحاولة مرة أخرى.',
           'keyApiKeyError':
               'لم نتمكن من الاتصال بالنموذج. تأكد من إضافة مفتاح API الخاص بك بشكل صحيح أو التبديل لمزود مختلف.',
-          'keyLessonPrompt': 'ضع الدرس أو المقالة',
+          'keyLessonPrompt': 'صور الدرس أو المقالة',
           'keyMainGoals': 'الأهداف الرئيسية',
           'keyCoreConcepts': 'المفاهيم الأساسية',
           'keyImportantPoints': 'النقاط المهمة',
