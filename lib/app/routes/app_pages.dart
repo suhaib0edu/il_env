@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/about/bindings/about_binding.dart';
+import '../modules/about/views/about_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/discussion/bindings/discussion_binding.dart';
@@ -16,6 +18,8 @@ import '../modules/invitations/bindings/invitations_binding.dart';
 import '../modules/invitations/views/invitations_view.dart';
 import '../modules/lesson_keys/bindings/lesson_keys_binding.dart';
 import '../modules/lesson_keys/views/lesson_keys_view.dart';
+import '../modules/policies_and_terms/bindings/policies_and_terms_binding.dart';
+import '../modules/policies_and_terms/views/policies_and_terms_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
 import '../modules/study_center/bindings/study_center_binding.dart';
@@ -78,6 +82,16 @@ class AppPages {
       name: _Paths.INVITATIONS,
       page: () => const InvitationsView(),
       binding: InvitationsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ABOUT,
+      page: () => const AboutView(),
+      binding: AboutBinding(),
+    ),
+    GetPage(
+      name: _Paths.POLICIES_AND_TERMS,
+      page: () => const PoliciesAndTermsView(),
+      binding: PoliciesAndTermsBinding(),
     ),
   ];
 }

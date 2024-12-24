@@ -59,17 +59,24 @@ class TranslationsService extends Translations {
           'keyAlreadyHaveAccount': 'Already have an account? Sign In',
           'keyDontHaveAccount': 'Don\'t have an account? Sign Up',
           'keyInviteFriend': 'Invite a Friend',
-           'keyAddAppToHomeScreen': 'Add Smart Learning Environment to your home screen!',
-           'keyFasterAccessBetterExperience': 'Faster access, better study experience.',
-           'keyInstantAccess': 'Instant Access: Open the app with just one tap.',
-           'keyBetterOrganization': 'Better Organization: Keep all your study resources in one place and stored locally.',
-            'keySaveData': 'Reduce internet usage and save data.',
-            'keySmoothExperience': 'Smooth and enhanced user experience.',
-            'keyInstallNow': 'Install App',
-            'keyRemindLater': 'Remind me Later',
-            'keyInstallNotSupported': 'This browser does not support installing as an application.',
-            'keyInstalling': 'Installing...',
-            'keyCheckNotificationProgress': 'Check the notification progress bar.',
+          'keyAddAppToHomeScreen':
+              'Add Smart Learning Environment to your home screen!',
+          'keyFasterAccessBetterExperience':
+              'Faster access, better study experience.',
+          'keyInstantAccess': 'Instant Access: Open the app with just one tap.',
+          'keyBetterOrganization':
+              'Better Organization: Keep all your study resources in one place and stored locally.',
+          'keySaveData': 'Reduce internet usage and save data.',
+          'keySmoothExperience': 'Smooth and enhanced user experience.',
+          'keyInstallNow': 'Install App',
+          'keyRemindLater': 'Remind me Later',
+          'keyInstallNotSupported':
+              'This browser does not support installing as an application.',
+          'keyInstalling': 'Installing...',
+          'keyCheckNotificationProgress':
+              'Check the notification progress bar.',
+          'keyPoliciesAndTerms': 'Policies and Terms',
+          'keyAbout': 'About',
         },
         'ar_SA': {
           'keyHelpText': 'ماذا سنتعلم اليوم؟',
@@ -128,17 +135,22 @@ class TranslationsService extends Translations {
           'keyAlreadyHaveAccount': 'هل لديك حساب بالفعل؟ تسجيل الدخول',
           'keyDontHaveAccount': 'ليس لديك حساب؟ إنشاء حساب',
           'keyInviteFriend': 'دعوة صديق',
-          'keyAddAppToHomeScreen': 'أضف بيئة التعليم الذكية كتطبيق إلى شاشتك الرئيسية!',
-           'keyFasterAccessBetterExperience': 'وصول أسرع، تجربة أفضل للدراسة.',
-           'keyInstantAccess': 'وصول فوري: سيمكنك من فتح التطبيق بنقرة واحدة فقط.',
-           'keyBetterOrganization': 'تنظيم أفضل: حافظ على جميع مواردك الدراسية في مكان واحد ومخزنة محليا.',
-            'keySaveData': 'تقليل استهلاك الانترنت و توفير البيانات',
-            'keySmoothExperience': 'تجربة استخدام سلسة ومحسّنة.',
-            'keyInstallNow': 'بتثبيت التطبيق',
-           'keyRemindLater': 'تذكير لاحقًا',
-           'keyInstallNotSupported': 'هذا المتصفح لا يدعم التثبيت كتطبيق.',
-           'keyInstalling': 'جاري التثبيت...',
-           'keyCheckNotificationProgress': 'شاهد شريط التقدم في الإشعارات',
+          'keyAddAppToHomeScreen':
+              'أضف بيئة التعليم الذكية كتطبيق إلى شاشتك الرئيسية!',
+          'keyFasterAccessBetterExperience': 'وصول أسرع، تجربة أفضل للدراسة.',
+          'keyInstantAccess':
+              'وصول فوري: سيمكنك من فتح التطبيق بنقرة واحدة فقط.',
+          'keyBetterOrganization':
+              'تنظيم أفضل: حافظ على جميع مواردك الدراسية في مكان واحد ومخزنة محليا.',
+          'keySaveData': 'تقليل استهلاك الانترنت و توفير البيانات',
+          'keySmoothExperience': 'تجربة استخدام سلسة ومحسّنة.',
+          'keyInstallNow': 'بتثبيت التطبيق',
+          'keyRemindLater': 'تذكير لاحقًا',
+          'keyInstallNotSupported': 'هذا المتصفح لا يدعم التثبيت كتطبيق.',
+          'keyInstalling': 'جاري التثبيت...',
+          'keyCheckNotificationProgress': 'شاهد شريط التقدم في الإشعارات',
+          'keyPoliciesAndTerms': 'السياسات والشروط',
+          'keyAbout': 'حول',
         },
       };
 }
@@ -208,6 +220,8 @@ enum TranslationKey {
   keyInstallNotSupported,
   keyInstalling,
   keyCheckNotificationProgress,
+  keyPoliciesAndTerms,
+  keyAbout,
 }
 
 String translateKeyTr(TranslationKey key) {

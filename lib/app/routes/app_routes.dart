@@ -13,6 +13,8 @@ abstract class Routes {
   static const FLASH_CARDS = _Paths.FLASH_CARDS;
   static const AUTH = _Paths.AUTH;
   static const INVITATIONS = _Paths.INVITATIONS;
+  static const ABOUT = _Paths.ABOUT;
+  static const POLICIES_AND_TERMS = _Paths.POLICIES_AND_TERMS;
 }
 
 abstract class _Paths {
@@ -27,4 +29,6 @@ abstract class _Paths {
   static const FLASH_CARDS = '/flash-cards';
   static const AUTH = '/auth';
   static const INVITATIONS = '/invitations';
+  static const ABOUT = '/about';
+  static const POLICIES_AND_TERMS = '/policies-and-terms';
 }

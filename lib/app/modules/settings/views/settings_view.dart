@@ -27,6 +27,16 @@ class SettingsView extends GetView<SettingsController> {
               translateKeyTr(TranslationKey.keyCreateApiKey),
               () => _showApiKeyDialog(),
             ),
+            // _buildListTile(
+            //   Icons.security_rounded,
+            //   translateKeyTr(TranslationKey.keyPoliciesAndTerms),
+            //   () => Get.toNamed(Routes.POLICIES_AND_TERMS),
+            // ),
+            // _buildListTile(
+            //   Icons.info_outline_rounded,
+            //   translateKeyTr(TranslationKey.keyAbout),
+            //   () => Get.toNamed(Routes.ABOUT),
+            // ),
             Spacer(),
           ],
         ),
