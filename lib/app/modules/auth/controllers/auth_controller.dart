@@ -24,9 +24,11 @@ class AuthController extends GetxController {
 
   void initPWAInstall() {
     PWAInstall().setup(installCallback: () {
-      print('تم تثبيت التطبيق عبر PWAInstall');
       isInstalled.value = true;
-      Get.snackbar('تم التثبيت!', 'تم تثبيت التطبيق بنجاح على شاشتك الرئيسية.');
+      Get.snackbar(
+        translateKeyTr(TranslationKey.keyInstalling),
+        translateKeyTr(TranslationKey.keyCheckNotificationProgress),
+      );
     });
     PWAInstall().getLaunchMode_();
     isInstallPromptEnabled.value = PWAInstall().installPromptEnabled;
@@ -36,8 +38,10 @@ class AuthController extends GetxController {
     try {
       PWAInstall().promptInstall_();
     } catch (e) {
-      print('خطأ في عرض مطالبة التثبيت: $e');
-      Get.snackbar('خطأ', 'هذا المتصفح لا يدعم التثبيت كتطبيق.');
+      Get.snackbar(
+        translateKeyTr(TranslationKey.keyError),
+        translateKeyTr(TranslationKey.keyInstallNotSupported),
+      );
     }
   }
 

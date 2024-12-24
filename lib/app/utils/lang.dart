@@ -67,6 +67,9 @@ class TranslationsService extends Translations {
             'keySmoothExperience': 'Smooth and enhanced user experience.',
             'keyInstallNow': 'Install App',
             'keyRemindLater': 'Remind me Later',
+            'keyInstallNotSupported': 'This browser does not support installing as an application.',
+            'keyInstalling': 'Installing...',
+            'keyCheckNotificationProgress': 'Check the notification progress bar.',
         },
         'ar_SA': {
           'keyHelpText': 'ماذا سنتعلم اليوم؟',
@@ -133,6 +136,9 @@ class TranslationsService extends Translations {
             'keySmoothExperience': 'تجربة استخدام سلسة ومحسّنة.',
             'keyInstallNow': 'بتثبيت التطبيق',
            'keyRemindLater': 'تذكير لاحقًا',
+           'keyInstallNotSupported': 'هذا المتصفح لا يدعم التثبيت كتطبيق.',
+           'keyInstalling': 'جاري التثبيت...',
+           'keyCheckNotificationProgress': 'شاهد شريط التقدم في الإشعارات',
         },
       };
 }
@@ -190,7 +196,7 @@ enum TranslationKey {
   keySignIn,
   keyAlreadyHaveAccount,
   keyDontHaveAccount,
-  keyInviteFriend, 
+  keyInviteFriend,
   keyAddAppToHomeScreen,
   keyFasterAccessBetterExperience,
   keyInstantAccess,
@@ -199,6 +205,9 @@ enum TranslationKey {
   keySmoothExperience,
   keyInstallNow,
   keyRemindLater,
+  keyInstallNotSupported,
+  keyInstalling,
+  keyCheckNotificationProgress,
 }
 
 String translateKeyTr(TranslationKey key) {
