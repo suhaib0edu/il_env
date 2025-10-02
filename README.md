@@ -23,7 +23,7 @@
 
 ## كيفية البدء
 
-1. **استنساخ المستودع:**  `git clone [رابط المستودع]`
+1. **استنساخ المستودع:**  `git clone https://github.com/suhaib0edu/il_env`
 2. **تنزيل التبعيات:** `cd il_env` ثم `flutter pub get`
 3. **تشغيل التطبيق:** `flutter run`
 
